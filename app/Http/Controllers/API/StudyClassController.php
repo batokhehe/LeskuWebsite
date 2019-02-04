@@ -1,0 +1,160 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\StudyClass; 
+use App\StudyClassDetail; 
+use Illuminate\Support\Facades\Auth; 
+use Validator;
+use Illuminate\Support\Str;
+
+class StudyClassController extends Controller
+{
+    public $successStatus = 200;
+    public $failedStatus = 401;
+
+    public function __construct()
+    {
+        $this->study_class_mdl =  new StudyClass();
+        $this->study_class_detail_mdl =  new StudyClassDetail();
+    }
+
+	/** 
+    * product api 
+    * 
+    * @return \Illuminate\Http\Response 
+    */ 
+    public function store(Request $request) 
+    { 
+        if(!$request->user() || !$request)
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $user_id = $request->user()->id;
+        $request_body = $request->json()->all();
+        $product_id = $request_body['productId'];
+        $json = $request_body['orderedClass'];
+        $subject = array();
+
+        foreach ($json as $key => $value) {
+            array_push($subject, $value['subject']);
+        }
+
+        $ordered_assembly = count($subject);
+        $ordered_subject = array_count_values($subject);
+
+        $data = array(
+                'user_id' => $user_id,
+                'product_id' => $product_id,
+                'ordered_assembly' => $ordered_assembly,
+                'ordered_subject' => count($ordered_subject),
+                'status' => '0',
+            );
+
+        $study_class = $this->study_class_mdl->create($data);
+
+        $study_class_id = $study_class->id;
+
+        foreach ($json as $key => $value) {
+            $unique_code = str_random(6);
+
+            $var = str_replace('/', '-', $value['date']);
+            $date = date('Y-m-d H:i:s', strtotime($var));
+            
+            $details[] = array(
+                'study_class_id' => $study_class_id,
+                'subject_id' => '1',
+                'teacher_id' => $value['teacherId'],
+                'study_start_at' => $date,
+                'unique_code' => $unique_code,
+                'status' => '0',
+            );
+        }   
+
+        $this->study_class_detail_mdl->insert($details);
+
+        return response()->json(
+                [
+                    'status' => $this->successStatus,
+                    'response' => 'Data Inserted'
+                ], 
+                $this->successStatus
+            ); 
+    }
+
+    public function detail(Request $request){
+        if(!$request->user() || !$request->study_class_id)
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $study_class_id = $request->study_class_id;
+
+        $result = $this->study_class_detail_mdl->detail($study_class_id);
+
+        return response()->json(
+                    $result, 
+                $this->successStatus
+            ); 
+    }
+
+    public function unpaid(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $user_id = $request->user()->id;
+
+        $result = $this->study_class_mdl->unpaid($user_id);
+
+        return response()->json(
+                    $result, 
+                $this->successStatus
+            ); 
+    }
+
+    public function upload(Request $request){
+        if(!$request->user() || !$request)
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $study_class_details_id = $request->id;
+        $trf_file = $request->trf_file;
+
+        $data = array(
+                        'trf_file' => $trf_file,
+                        'status' => '1'
+                    );
+
+        $this->study_class_mdl->where('id', $study_class_details_id)->update($data);
+
+        return response()->json(
+                [
+                    'status' => $this->successStatus,
+                    'response' => 'Data Uploaded'
+                ],  
+                $this->successStatus
+            ); 
+    }
+}
