@@ -102,4 +102,5 @@ class TeacherController extends Controller
     public function is_weekend($date){
         return (date('N', strtotime($date)) >= 6);
     }
+    
 }
