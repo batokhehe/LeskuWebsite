@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class StudyClass extends Migration
+class StudyClasses extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class StudyClass extends Migration
      */
     public function up()
     {
-      Schema::create('study_class', function (Blueprint $table) {
+      Schema::create('study_classes', function (Blueprint $table) {
         $table->increments('id');
         $table->integer('user_id');
         $table->integer('product_id');
@@ -32,6 +32,6 @@ class StudyClass extends Migration
      */
     public function down()
     {
-      Schema::dropIfExists('study_class');
+      Schema::dropIfExists('study_classes');
     }
 }

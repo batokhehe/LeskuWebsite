@@ -16,42 +16,44 @@ use Illuminate\Http\Request;
 Route::group([
     'prefix' => 'auth'
 	], function () {
-	    Route::post('login', 'API\AuthController@login');
-	    Route::post('register', 'API\AuthController@register');
+	    Route::post('login', 'StudentAPI\AuthController@login');
+	    Route::post('register', 'StudentAPI\AuthController@register');
+
+        Route::post('teacher/login', 'TeacherAPI\AuthController@login');
 	  
 	    Route::group([
 	      'middleware' => 'auth:api'
 	    ], function() {
-	        Route::get('logout', 'API\AuthController@logout');
-	        Route::get('user', 'API\AuthController@user');
+	        Route::get('logout', 'StudentAPI\AuthController@logout');
+	        Route::get('user', 'StudentAPI\AuthController@user');
 	    });
 	}
 );
 
 //Study Level
-Route::get('study_levels', 'API\StudyLevelController@all');
+Route::get('study_levels', 'StudentAPI\StudyLevelController@all');
 
 //HOME
 Route::group([
       'middleware' => 'auth:api'
     ], function() {
     	//Product
-        Route::get('products', 'API\ProductController@all');
+        Route::get('products', 'StudentAPI\ProductController@all');
 
         //Subject
-        Route::get('subjects', 'API\SubjectController@all');
+        Route::get('subjects', 'StudentAPI\SubjectController@all');
 
         //Order
-        Route::get('order/teachers', 'API\TeacherController@all');
-        Route::post('order/teacher_blank_schedules', 'API\TeacherController@blank_schedules');
-        Route::post('order/add', 'API\StudyClassController@store');
-        Route::get('order/unpaid', 'API\StudyClassController@unpaid');
-        Route::post('order/detail', 'API\StudyClassController@detail');
-        Route::post('order/upload_trf_file', 'API\StudyClassController@upload');
+        Route::get('order/teachers', 'StudentAPI\TeacherController@all');
+        Route::post('order/teacher_blank_schedules', 'StudentAPI\TeacherController@blank_schedules');
+        Route::post('order/add', 'StudentAPI\StudyClassController@store');
+        Route::get('order/unpaid', 'StudentAPI\StudyClassController@unpaid');
+        Route::post('order/detail', 'StudentAPI\StudyClassController@detail');
+        Route::post('order/upload_trf_file', 'StudentAPI\StudyClassController@upload');
     }
 );
 
 
 //UTILS
-Route::post('encode', 'API\ProductController@base64encoder');
-Route::post('decode', 'API\ProductController@base64decoder');
+Route::post('encode', 'StudentAPI\ProductController@base64encoder');
+Route::post('decode', 'StudentAPI\ProductController@base64decoder');

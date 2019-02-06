@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\StudentAPI;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,6 +38,10 @@ class TeacherController extends Controller
 
         $result = $this->teacher_mdl->all();
 
+        foreach ($result as $key => $value) {
+            $result[$key]['schedule'] = $this->blank_schedules($value->id);
+        }
+
         return response()->json(
             	$result
             , 
@@ -45,17 +49,8 @@ class TeacherController extends Controller
         ); 
     }
 
-    public function blank_schedules(Request $request){
-        if(!$request->user() || !$request->teacher_id)
-            return response()->json(
-                [
-                    'status' => $this->failedStatus,
-                    'response' => 'Unauthorized'
-                ], 
-                $this->failedStatus
-            ); 
-
-        $result = $this->teacher_mdl->schedule($request->teacher_id);
+    public function blank_schedules($teacher_id){
+        $result = $this->teacher_mdl->schedule($teacher_id);
         $schedule = array();
         $blank_schedule = array();
 
@@ -68,8 +63,12 @@ class TeacherController extends Controller
         $oneweek_ = date('Y-m-d', $oneweek__);
         $oneweek = new DateTime($oneweek_, new DateTimeZone('Asia/Jakarta'));
 
-        foreach ($result as $res) {
-            $schedule[] = date('Y-m-d H:i', strtotime($res->study_start_at));
+        if($result){
+            foreach ($result as $res) {
+                $schedule[] = date('Y-m-d H:i', strtotime($res->study_start_at));
+            }
+        } else {
+            $schedule[] = "false";
         }
 
         do {
@@ -91,12 +90,7 @@ class TeacherController extends Controller
             }
             $now->modify('+1 day');
         } while ($now <= $oneweek);
-        $blank_schedule = array('schedule' => $blank_schedule);
-        return response()->json(
-                $blank_schedule
-            , 
-            $this->successStatus
-        ); 
+        return $blank_schedule;
     }
 
     public function is_weekend($date){

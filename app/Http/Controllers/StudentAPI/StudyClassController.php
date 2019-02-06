@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\StudentAPI;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -65,14 +65,14 @@ class StudyClassController extends Controller
         foreach ($json as $key => $value) {
             $unique_code = str_random(6);
 
-            $var = str_replace('/', '-', $value['date']);
-            $date = date('Y-m-d H:i:s', strtotime($var));
+            // $var = str_replace('/', '-', $value['date']);
+            // $date = date('Y-m-d H:i:s', strtotime($var));
             
             $details[] = array(
                 'study_class_id' => $study_class_id,
-                'subject_id' => '1',
+                'subject_id' => $value['subject'],
                 'teacher_id' => $value['teacherId'],
-                'study_start_at' => $date,
+                'study_start_at' => $value['selectedSchedule'] ? $value['selectedSchedule'] : null,
                 'unique_code' => $unique_code,
                 'status' => '0',
             );
