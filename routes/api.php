@@ -32,6 +32,7 @@ Route::group([
 
 //Study Level
 Route::get('study_levels', 'StudentAPI\StudyLevelController@all');
+Route::get('dummy_push_notif', 'StudentAPI\StudyClassController@dummy_push_notif_to_teacher');
 
 //HOME
 Route::group([

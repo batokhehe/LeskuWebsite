@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\StudyClass; 
 use App\StudyClassDetail; 
+use App\Notifications\TeacherNotificationHelper; 
 use Illuminate\Support\Facades\Auth; 
 use Validator;
 use Illuminate\Support\Str;
@@ -19,6 +20,7 @@ class StudyClassController extends Controller
     {
         $this->study_class_mdl =  new StudyClass();
         $this->study_class_detail_mdl =  new StudyClassDetail();
+        $this->teacher_notification_helper = new TeacherNotificationHelper();
     }
 
 	/** 
@@ -156,5 +158,18 @@ class StudyClassController extends Controller
                 ],  
                 $this->successStatus
             ); 
+    }
+
+    //PROCESS
+
+    public function dummy_push_notif_to_teacher()
+    {
+        $firebase_id = "cpOBvjRxjRY:APA91bETiMDRSN3zZADGqep0WHKsD9dRY6evGjX-z6m8f3hI8XlcUgy1kXnQXYI6XEIbEZSzObfQiMtGpAmWe054hSd5JZZ5TU2rCdh7YIibxouiInywOaLkBGnZKz9YkuYl73EGza5s";
+        $message = "Percobaan dari laravel";
+        $type = "1";
+
+        $result = $this->teacher_notification_helper->send_to_specific_user($firebase_id, $message, $type);
+
+        return $result;
     }
 }
