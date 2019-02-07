@@ -30,4 +30,5 @@ class Group extends Migration
     {
         Schema::dropIfExists('group');
     }
+	
 }
