@@ -18,3 +18,8 @@ Route::get('/', function () {
 // Email related routes
 Route::get('mail/send', 'MailController@send');
 Route::get('auth/verification', 'Auth\RegisterController@email_verification');
+
+//admin
+Route::get('/admin', function () {
+    return view('layouts.admin.pages.home.index');
+});
