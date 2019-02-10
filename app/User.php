@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'app_img', 'app_firebase_id', 'app_token', 'activation_code', 'email_verified_at',
+        'first_name', 'last_name', 'username', 'email', 'group_id','type', 'password' ,'status', 'app_img', 'app_firebase_id', 'app_token', 'activation_code', 'email_verified_at',
     ];
 
     /**
@@ -34,4 +34,27 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $user;
     }
+    public function getAll()
+  {
+    $users = Users::whereNull('deleted_at')->get();
+    return $users;
+  }
+
+  public function find($id)
+  {
+    $users = Users::where('id', $id)->first();
+    return $users;
+  }
+
+  public function update($data = array(), $id = NULL)
+  {
+    $users = Users::where('id', $id)->update($data);
+    return $users;
+  }
+
+  public function softDelete($data = array(), $id = NULL)
+  {
+    $users = Users::where('id', $id)->update($data);
+    return $users;
+  }
 }

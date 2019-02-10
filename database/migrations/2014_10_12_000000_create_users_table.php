@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name')->nullable();
+            $table->string('username')->nullable();
             $table->string('email')->unique();
             $table->text('app_token')->nullable();
             $table->string('app_firebase_id')->nullable();
@@ -25,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('group_id')->default(0);
             $table->integer('type')->default(0);
+            $table->integer('status')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
