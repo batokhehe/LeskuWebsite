@@ -33,7 +33,10 @@ Route::get('/contact', function () {
 });
 
 // Profile
-
+Route::get('/profile', 'TeacherController@index');
+Route::get('/profile/edit', 'TeacherController@edit');
+Route::post('/profile/update', 'TeacherController@update');
+Route::post('/profile/store', 'TeacherController@store')->name('teacher.store');
 
 
 // Email related routes
