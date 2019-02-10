@@ -11,15 +11,47 @@
 |
 */
 
+// Website
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.web.pages.home.index');
 });
+
+Route::get('/about', function () {
+    return view('layouts.web.pages.about.index');
+});
+
+Route::get('/product', function () {
+    return view('layouts.web.pages.product.index');
+});
+
+Route::get('/help', function () {
+    return view('layouts.web.pages.help.index');
+});
+
+Route::get('/contact', function () {
+    return view('layouts.web.pages.contact.index');
+});
+
+// Profile
+
+
 
 // Email related routes
 Route::get('mail/send', 'MailController@send');
 Route::get('auth/verification', 'Auth\RegisterController@email_verification');
 
-//admin
+
+
+Auth::routes();
+// Admin
+
 Route::get('/admin', function () {
     return view('layouts.admin.pages.home.index');
 });
+// Route::prefix('admin')->group(function() {
+//   Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+//   Route::post('/login', 'Auth\AdminLoginController@Login')->name('admin.login.submit');
+//   Route::get('/', 'AdminController@index')->name('admin.dashboard');
+// });
+
+Route::get('/home', 'HomeController@index')->name('home');
