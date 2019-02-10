@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\StudyClass;
 use App\StudyClassDetail;
+use App\Teacher;
 use App\Notifications\NotificationHelper;
 
 class StudyClassController extends Controller
@@ -17,6 +18,7 @@ class StudyClassController extends Controller
     {
         $this->study_class_mdl =  new StudyClass();
         $this->study_class_detail_mdl =  new StudyClassDetail();
+        $this->teacher_mdl =  new Teacher();
         $this->notification_helper = new NotificationHelper();
     }
 
@@ -38,5 +40,42 @@ class StudyClassController extends Controller
                     $result, 
                 $this->successStatus
             ); 
+    }
+
+    public function accept_order(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $user_id = $request->user()->id;
+        $id = $request->study_class_detail_id;
+        $teacher = $this->teacher_mdl->where('user_id', $user_id)->first();
+
+        $data = array('status' => '1');
+
+        $result = $this->study_class_detail_mdl->where('id', $request->id)->where('teacher_id', $teacher->id)->update($data);
+
+        if($result){
+	        return response()->json(
+                [
+                    'status' => $this->successStatus,
+                    'response' => 'Data Successfully Updated'
+                ], 
+                $this->successStatus
+            ); 
+        } else {
+        	return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+        }
     }
 }

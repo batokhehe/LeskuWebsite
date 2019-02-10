@@ -55,7 +55,8 @@ class StudyClassDetail extends Model
                 ->join($this->table4, $this->table4 . '.id', '=', $this->table . '.study_class_id')
                 ->join($this->table5, $this->table5 . '.user_id', '=', $this->table4 . '.user_id')
                 ->where($this->table3 . '.user_id', $user_id)
-                ->where($this->table . '.status', '2')
+                ->where($this->table . '.status', '0')
+                ->where($this->table4 . '.status', '2')
                 ->get();
 
                 return $query;

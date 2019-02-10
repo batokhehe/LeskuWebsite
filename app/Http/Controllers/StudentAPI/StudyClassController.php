@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\StudyClass; 
 use App\StudyClassDetail; 
-use App\Notifications\TeacherNotificationHelper; 
+use App\Notifications\NotificationHelper; 
 use Illuminate\Support\Facades\Auth; 
 use Validator;
 use Illuminate\Support\Str;

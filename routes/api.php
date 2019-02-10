@@ -58,6 +58,7 @@ Route::group([
 
         /*---------- TEACHER -----------*/
         Route::get('teacher/order/waiting', 'TeacherAPI\StudyClassController@waiting');
+        Route::post('teacher/order/accept_order', 'TeacherAPI\StudyClassController@accept_order');
         /*---------- TEACHER -----------*/
     }
 );

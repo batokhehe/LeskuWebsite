@@ -19,7 +19,7 @@ class StudyClasses extends Migration
         $table->integer('product_id');
         $table->string('ordered_assembly');
         $table->string('ordered_subject');
-        $table->string('trf_file')->nullable();
+        $table->text('trf_file')->nullable();
         $table->integer('status');
         $table->timestamps();
       });
