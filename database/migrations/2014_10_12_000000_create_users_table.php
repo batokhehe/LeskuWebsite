@@ -25,7 +25,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('group_id')->default(0);
             $table->integer('type')->default(0);
-            $table->text('app_img');
             $table->rememberToken();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

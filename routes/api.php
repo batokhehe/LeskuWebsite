@@ -16,9 +16,11 @@ use Illuminate\Http\Request;
 Route::group([
     'prefix' => 'auth'
 	], function () {
+        //STUDENT
 	    Route::post('login', 'StudentAPI\AuthController@login');
 	    Route::post('register', 'StudentAPI\AuthController@register');
 
+        //TEACHER
         Route::post('teacher/login', 'TeacherAPI\AuthController@login');
 	  
 	    Route::group([
@@ -38,6 +40,7 @@ Route::get('dummy_push_notif', 'StudentAPI\StudyClassController@dummy_push_notif
 Route::group([
       'middleware' => 'auth:api'
     ], function() {
+        /*---------- STUDENT -----------*/
     	//Product
         Route::get('products', 'StudentAPI\ProductController@all');
 
@@ -51,6 +54,11 @@ Route::group([
         Route::get('order/unpaid', 'StudentAPI\StudyClassController@unpaid');
         Route::post('order/detail', 'StudentAPI\StudyClassController@detail');
         Route::post('order/upload_trf_file', 'StudentAPI\StudyClassController@upload');
+        /*---------- STUDENT -----------*/
+
+        /*---------- TEACHER -----------*/
+        Route::get('teacher/order/waiting', 'TeacherAPI\StudyClassController@waiting');
+        /*---------- TEACHER -----------*/
     }
 );
 

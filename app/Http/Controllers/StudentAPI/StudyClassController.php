@@ -20,7 +20,7 @@ class StudyClassController extends Controller
     {
         $this->study_class_mdl =  new StudyClass();
         $this->study_class_detail_mdl =  new StudyClassDetail();
-        $this->teacher_notification_helper = new TeacherNotificationHelper();
+        $this->notification_helper = new NotificationHelper();
     }
 
 	/** 
@@ -168,7 +168,7 @@ class StudyClassController extends Controller
         $message = "Percobaan dari laravel";
         $type = "1";
 
-        $result = $this->teacher_notification_helper->send_to_specific_user($firebase_id, $message, $type);
+        $result = $this->notification_helper->send_to_specific_user($firebase_id, $message, $type);
 
         return $result;
     }

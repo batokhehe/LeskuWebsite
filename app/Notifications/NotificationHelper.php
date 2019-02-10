@@ -1,7 +1,7 @@
 <?php 
 namespace App\Notifications;
 
-class TeacherNotificationHelper 
+class NotificationHelper 
 {
     protected $teacher_key = "AIzaSyBT5ayeEGBJ68IQDg-RS8LofbiRHW_cwoo";
     protected $student_key = "AIzaSyCFXYYWMYXLrn-U7IlcBIH7Lo1YJO2_Xsg";

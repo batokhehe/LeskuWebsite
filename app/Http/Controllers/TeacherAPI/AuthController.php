@@ -37,25 +37,30 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if($user->email_verified_at != null){
-            	$success['first_name'] = $user->first_name;
-	            $success['last_name'] = $user->last_name;
-	            $success['email'] = $user->email;
-	            $success['token'] =  $user->createToken('LeskuApp')->accessToken; 
-	            $success['app_img'] = $user->app_img;
+            	$data['first_name'] = $user->first_name;
+	            $data['last_name'] = $user->last_name;
+	            $data['email'] = $user->email;
+	            $data['token'] =  $user->createToken('LeskuApp')->accessToken; 
+	            // $success['app_img'] = $user->app_img;
 
 	            $user_mdl = new User;
 
-	            $data = array(
+	            $user_data = array(
 	                        'app_firebase_id' => request('app_firebase_id'), 
-	                        'app_token' => $success['token'],
+	                        'app_token' => $data['token'],
 	                    );
 
-	            $user_mdl->where('id', $user->id)->update($data);
+	            $user_mdl->where('id', $user->id)->update($user_data);
+
+                $teacher_mdl = new Teacher;
+
+                $teacher = $teacher_mdl->where('user_id', $user->id)->first();
+                $data['app_img'] = $teacher->image;
 	           
 	            return response()->json(
 	                [
 	                    'status' => $this->successStatus,
-	                    'response' => $success
+	                    'response' => $data
 	                ], 
 	                $this->successStatus
 	            ); 

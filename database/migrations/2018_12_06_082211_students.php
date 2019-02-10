@@ -20,9 +20,10 @@ class Students extends Migration
         $table->string('school_name');
         $table->string('school_class');
         $table->integer('level_id');
-        $table->string('adress');
+        $table->string('address');
         $table->string('email');
         $table->string('phone_number');
+        $table->text('image');
         $table->integer('user_id');
         $table->timestamps();
       });
