@@ -41,20 +41,17 @@ Route::post('/profile/store', 'TeacherController@store')->name('teacher.store');
 
 // Email related routes
 Route::get('mail/send', 'MailController@send');
-Route::get('auth/verification', 'Auth\RegisterController@email_verification');
+// Route::get('auth/verification', 'Auth\RegisterController@email_verification');
 
 
 
 Auth::routes();
+
 // Admin
-
-Route::get('/admin', function () {
-    return view('layouts.admin.pages.home.index');
+Route::prefix('admin')->group(function() {
+  Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+  Route::post('/login', 'Auth\AdminLoginController@Login')->name('admin.login.submit');
+  Route::get('/', 'AdminController@index')->name('admin.dashboard');
 });
-// Route::prefix('admin')->group(function() {
-//   Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
-//   Route::post('/login', 'Auth\AdminLoginController@Login')->name('admin.login.submit');
-//   Route::get('/', 'AdminController@index')->name('admin.dashboard');
-// });
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

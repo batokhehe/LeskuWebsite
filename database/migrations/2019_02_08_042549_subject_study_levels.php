@@ -15,10 +15,8 @@ class SubjectStudyLevels extends Migration
     {
       Schema::create('subject_study_levels', function (Blueprint $table) {
         $table->increments('id');
-        $table->integer('id_subject');
-        $table->string('name_subjects');
-        $table->string('id_study_levels');
-        $table->string('name_study_levels');
+        $table->integer('id_subjects');
+        $table->integer('id_study_levels');
         $table->timestamps();
       });
     }
