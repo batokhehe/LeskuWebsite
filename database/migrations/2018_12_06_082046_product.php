@@ -21,6 +21,7 @@ class Product extends Migration
         $table->integer('min_order');
         $table->integer('max_order');
         $table->integer('multiple');
+        $table->timestamp('deleted_at')->nullable();
         $table->timestamps();
       });
     }

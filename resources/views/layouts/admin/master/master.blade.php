@@ -312,7 +312,19 @@
             <li><a href="/product"><i class="fa fa-circle-o"></i> Manage Product</a></li>
             <li><a href="/payment"><i class="fa fa-circle-o"></i> Manage Payment</a></li>
             <li><a href="/rating"><i class="fa fa-circle-o"></i> Manage Rating</a></li>
-            <li><a href="/user"><i class="fa fa-circle-o"></i> Manage User</a></li>
+            <!-- <li><a href="/user"><i class="fa fa-circle-o"></i> Manage User</a></li> -->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-circle-o"></i> <span> Manage User</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="/class"><i class="fa fa-circle-o"></i> Manage Student</a></li>
+                <li><a href="/income"><i class="fa fa-circle-o"></i> Manage Teacher</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li class="treeview">
@@ -621,6 +633,24 @@
       'autoWidth'   : false
     })
   })
+</script>
+<script type="text/javascript">
+
+  function readURL(input, show) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $('#' + show).attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+
+$("#input_product").change(function () {
+    readURL(this, 'show_product');
+});
 </script>
 </body>
 </html>

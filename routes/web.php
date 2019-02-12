@@ -54,4 +54,14 @@ Route::prefix('admin')->group(function() {
   Route::get('/', 'AdminController@index')->name('admin.dashboard');
 });
 
+// Admin-Product
+Route::get('/product', 'ProductController@index');
+Route::get('/product/create', function () {
+    return view('layouts.admin.pages.product.create');
+});
+Route::post('/product/store', 'ProductController@store')->name('product.store');
+Route::get('/product/edit/{id}', 'ProductController@edit');
+Route::post('/product/update/{id}', 'ProductController@update');
+Route::get('/product/delete/{id}', 'ProductController@delete');
+
 // Route::get('/home', 'HomeController@index')->name('home');
