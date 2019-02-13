@@ -46,21 +46,21 @@ class User extends Authenticatable
       return $users;
     }
 
-  public function find($id)
-  {
-    $users = User::where('id', $id)->first();
-    return $users;
-  }
+    public function find($id)
+    {
+      $users = User::where('id', $id)->first();
+      return $users;
+    }
 
-  public function update($data = array(), $id = NULL)
-  {
-    $users = User::where('id', $id)->update($data);
-    return $users;
-  }
+    public function update($data = array(), $id = NULL)
+    {
+      $users = User::where('id', $id)->update($data);
+      return $users;
+    }
 
-  public function softDelete($data = array(), $id = NULL)
-  {
-    $users = User::where('id', $id)->update($data);
-    return $users;
-  }
+    public function softDelete($data = array(), $id = NULL)
+    {
+      $users = User::where('id', $id)->update($data);
+      return $users;
+    }
 }

@@ -12,11 +12,11 @@ class Study_ClassController extends Controller
 
     Public function index()
     {
-      // $study_class = new StudyClass;
-      //
-      // $data = $study_class->getAll();
-      return view('layouts.admin.pages.transaction.index');
-              // ->with('study_classes', $table2)
-              // ->with('module', $this->module);
+      $study_classes = new StudyClass;
+
+      $data = $study_classes->paymetVerification();
+      return view('layouts.admin.pages.payment_verification.index')
+              ->with('study_classes', $data)
+              ->with('module', $this->module);
     }
 }

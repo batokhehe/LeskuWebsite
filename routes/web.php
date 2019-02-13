@@ -75,7 +75,7 @@ Route::post('/user/update/{id}', 'UserController@update');
 Route::get('/user/delete/{id}', 'UserController@delete');
 
 // Admin-transaction
-Route::get('/transaction', 'Study_ClassController@index');
+Route::get('/payment_verification', 'Study_ClassController@index');
 Route::get('/user/create', function () {
     return view('layouts.admin.pages.user.create');
 });

@@ -335,7 +335,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/transaction"><i class="fa fa-circle-o"></i> Payment Verification</a></li>
+            <li><a href="/payment_verification"><i class="fa fa-circle-o"></i> Payment Verification</a></li>
           </ul>
         </li>
         <li class="treeview">
