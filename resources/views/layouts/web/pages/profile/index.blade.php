@@ -207,7 +207,7 @@
                                         <div class="input-group mb-3">
                                             <div class="custom-file">
                                                 <!-- <input type="file" class="custom-file-input" id="inputGroupFile01"> -->
-                                                <img src="{{ url('documents/id/'.$teacher->id_card) }}" id="showid">
+                                                <img src="{{ url('doc/id/'.$teacher->id_card) }}" id="showid">
                                             </div>
                                         </div>
                                         <strong>Curriculum vitae</strong>
@@ -215,14 +215,14 @@
                                         <div class="input-group mb-3">
                                             <div class="custom-file">
                                               <!-- <input class="form-control" id="inputcv" type="file" name="cv_file" value="{{ $teacher->cv_file }}"> -->
-                                              <iframe src="{{ url('documents/cv/'.$teacher->cv_file) }}" id="showcv" style="width:640px;min-height:640px;"></iframe>
+                                              <iframe src="{{ url('doc/cv/'.$teacher->cv_file . '#toolbar=0') }}" style="width:640px;min-height:640px;"></iframe>
                                             </div>
                                         </div>
                                         <strong>Ijazah & Transkrip Nilai</strong>
                                         <hr>
                                         <div class="input-group mb-3">
                                             <div class="custom-file">
-                                                <iframe src="{{ url('documents/certificate/'.$teacher->certificate) }}" frameborder="0" id="showcertificate" style="width:640px;min-height:640px;"></iframe>
+                                                <iframe src="{{ url('doc/certificate/' . $teacher->certificate . '#toolbar=0') }}" frameborder="0" style="width:640px;min-height:640px;"></iframe>
                                             </div>
                                         </div>
                                     </tbody>

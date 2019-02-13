@@ -35,7 +35,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-striped table-responsive" width="100%">
                 <thead align=center>
                 <tr>
                   <th>No</th>
@@ -56,10 +56,10 @@
                     <td>{{ $user->last_name }}</td>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->email }}</td>
-										<td>{{ $user->status }}</td>
+										<td><?php echo $user->status == '0' ? 'Non-Active' : 'Active' ?></td>
                     <td align="center">
-											<a href="{{ url('/' . $module . '/edit/' . $user->id) }}" type="button" class="btn-sm btn-success">Edit</a>
-											<a href="{{ url('/' . $module . '/delete/' . $user->id) }}" type="button" class="btn-sm btn-danger">Delete</a>
+											<a href="{{ url('/' . $module . '/edit/' . $user->id) }}" type="button" class="btn-sm btn-primary"><i class="fa fa-edit"></i>&nbsp;Activation</a> &nbsp;
+											<a href="{{ url('/' . $module . '/delete/' . $user->id) }}" type="button" class="btn-sm btn-danger"><i class="fa fa-trash"></i>&nbsp;Delete</a>
                   </tr>
 									@php ($i++)
                   @endforeach

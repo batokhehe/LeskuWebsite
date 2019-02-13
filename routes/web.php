@@ -74,4 +74,14 @@ Route::get('/user/edit/{id}', 'UserController@edit');
 Route::post('/user/update/{id}', 'UserController@update');
 Route::get('/user/delete/{id}', 'UserController@delete');
 
+// Admin-transaction
+Route::get('/transaction', 'Study_ClassController@index');
+Route::get('/user/create', function () {
+    return view('layouts.admin.pages.user.create');
+});
+Route::post('/user/store', 'UserController@store')->name('user.store');
+Route::get('/user/edit/{id}', 'UserController@edit');
+Route::post('/user/update/{id}', 'UserController@update');
+Route::get('/user/delete/{id}', 'UserController@delete');
+
 // Route::get('/home', 'HomeController@index')->name('home');

@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
@@ -35,10 +35,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $user;
     }
     public function getAll()
-  {
-    $users = User::whereNull('deleted_at')->get();
-    return $users;
-  }
+    {
+      $users = User::whereNull('deleted_at')->get();
+      return $users;
+    }
+
+    public function getAllTeacher()
+    {
+      $users = User::whereNull('deleted_at')->where('type','1')->get();
+      return $users;
+    }
 
   public function find($id)
   {

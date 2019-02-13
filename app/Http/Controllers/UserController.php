@@ -15,7 +15,7 @@ class UserController extends Controller
     {
       $users = new User;
 
-      $data = $users->getAll();
+      $data = $users->getAllTeacher();
       return view('layouts.admin.pages.user.index')
                 ->with('users', $data)
                 ->with('module', $this->module);
@@ -49,7 +49,7 @@ class UserController extends Controller
         'email' => $request->post('email'),
         'password' => Hash::make('password'),
         'group_id' => '1',
-        'status' => 'deactive',
+        'status' => '0',
         'type' => '1'
       ]);
       if($users->save()){
@@ -99,7 +99,7 @@ class UserController extends Controller
         'last_name' => $request->post('last_name'),
         'username' => $request->post('username'),
         'email' => $request->post('email'),
-        'status' => 'active',
+        'status' => '1',
       );
 
       $data = $users->update($data, $id);

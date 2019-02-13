@@ -34,7 +34,7 @@
                     <div class="form-group">
                       <label for="img" class="col-sm-2 control-label">Image</label>
                       <div class="col-sm-10">
-                        <input type="file" id="input_product" class="validate" name="img">
+                        <input type="file" id="input_product" class="validate" name="image">
                         <img id="show_product">
                       </div>
                     </div>
