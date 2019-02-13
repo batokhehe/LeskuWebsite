@@ -64,4 +64,24 @@ Route::get('/product/edit/{id}', 'ProductController@edit');
 Route::post('/product/update/{id}', 'ProductController@update');
 Route::get('/product/delete/{id}', 'ProductController@delete');
 
+// Admin-user
+Route::get('/user', 'UserController@index');
+Route::get('/user/create', function () {
+    return view('layouts.admin.pages.user.create');
+});
+Route::post('/user/store', 'UserController@store')->name('user.store');
+Route::get('/user/edit/{id}', 'UserController@edit');
+Route::post('/user/update/{id}', 'UserController@update');
+Route::get('/user/delete/{id}', 'UserController@delete');
+
+// Admin-transaction
+Route::get('/payment_verification', 'Study_ClassController@index');
+Route::get('/user/create', function () {
+    return view('layouts.admin.pages.user.create');
+});
+Route::post('/user/store', 'UserController@store')->name('user.store');
+Route::get('/user/edit/{id}', 'UserController@edit');
+Route::post('/user/update/{id}', 'UserController@update');
+Route::get('/user/delete/{id}', 'UserController@delete');
+
 // Route::get('/home', 'HomeController@index')->name('home');

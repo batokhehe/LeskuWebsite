@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'name', 'img', 'description', 'min_order', 'max_order', 'multiple',
+        'name', 'image', 'description', 'min_order', 'max_order', 'multiple',
     ];
     /**
      * The attributes that should be hidden for arrays.

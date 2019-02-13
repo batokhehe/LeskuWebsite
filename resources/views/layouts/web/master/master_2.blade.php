@@ -281,11 +281,15 @@
 	<!-- //for bootstrap working -->
 	<script type="text/javascript">
 
-    function readURL(input, show) {
+    function readURL(input, show, blank) {
+
+				$('#' + blank).hide();
+
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
+								$('#' + show).show();
                 $('#' + show).attr('src', e.target.result);
             }
 
@@ -302,7 +306,7 @@
 	});
 
 	$("#inputcv").change(function () {
-			readURL(this, 'showcv');
+			readURL(this, 'showcv', 'cv_blank');
 	});
 
 	$("#inputcertificate").change(function () {

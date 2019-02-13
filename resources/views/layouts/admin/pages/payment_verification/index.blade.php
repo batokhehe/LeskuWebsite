@@ -29,36 +29,31 @@
 						</div>
 						@endif
 						<div class="box-header">
-		          <h3 class="box-title">Data Table Teacher</h3>
-							<a href="/<?php echo $module ?>/create" type="button" class="btn btn-info pull-right">Create</a>
+		          <h3 class="box-title">Data Table Payment Verification</h3>
 		        </div>
             <!-- /.box-header -->
             <div class="box-body">
 
               <table id="example1" class="table table-bordered table-striped table-responsive" width="100%">
-                <thead align=center>
+                <thead>
                 <tr>
                   <th>No</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>User Name</th>
-                  <th>E-mail</th>
+                  <th>Name</th>
+                  <th>Product</th>
 									<th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
 									@php ($i = 1)
-                  @foreach ($users as $user)
+                  @foreach ($study_classes as $user)
                   <tr>
 										<td>{{ $i }}</td>
-                    <td>{{ $user->first_name }}</td>
-                    <td>{{ $user->last_name }}</td>
                     <td>{{ $user->username }}</td>
-                    <td>{{ $user->email }}</td>
-										<td><?php echo $user->status == '0' ? 'Non-Active' : 'Active' ?></td>
+                    <td>{{ $user->name }}</td>
+										<td><?php echo $user->status == '1' ? 'Pay' : 'Active' ?></td>
                     <td align="center">
-											<a href="{{ url('/' . $module . '/edit/' . $user->id) }}" type="button" class="btn-sm btn-primary"><i class="fa fa-edit"></i>&nbsp;Activation</a> &nbsp;
+											<a href="{{ url('/' . $module . '/edit/' . $user->id) }}" type="button" class="btn-sm btn-primary"><i class="fa fa-edit"></i>&nbsp;Edit</a> &nbsp;
 											<a href="{{ url('/' . $module . '/delete/' . $user->id) }}" type="button" class="btn-sm btn-danger"><i class="fa fa-trash"></i>&nbsp;Delete</a>
                   </tr>
 									@php ($i++)

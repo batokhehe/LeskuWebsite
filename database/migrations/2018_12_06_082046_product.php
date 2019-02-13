@@ -17,7 +17,7 @@ class Product extends Migration
         $table->increments('id');
         $table->string('name');
         $table->string('description');
-        $table->string('img');
+        $table->string('image');
         $table->integer('min_order');
         $table->integer('max_order');
         $table->integer('multiple');

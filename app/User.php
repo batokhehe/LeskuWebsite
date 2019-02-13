@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
@@ -35,26 +35,32 @@ class User extends Authenticatable implements MustVerifyEmail
         return $user;
     }
     public function getAll()
-  {
-    $users = Users::whereNull('deleted_at')->get();
-    return $users;
-  }
+    {
+      $users = User::whereNull('deleted_at')->get();
+      return $users;
+    }
 
-  public function find($id)
-  {
-    $users = Users::where('id', $id)->first();
-    return $users;
-  }
+    public function getAllTeacher()
+    {
+      $users = User::whereNull('deleted_at')->where('type','1')->get();
+      return $users;
+    }
 
-  public function update($data = array(), $id = NULL)
-  {
-    $users = Users::where('id', $id)->update($data);
-    return $users;
-  }
+    public function find($id)
+    {
+      $users = User::where('id', $id)->first();
+      return $users;
+    }
 
-  public function softDelete($data = array(), $id = NULL)
-  {
-    $users = Users::where('id', $id)->update($data);
-    return $users;
-  }
+    public function update($data = array(), $id = NULL)
+    {
+      $users = User::where('id', $id)->update($data);
+      return $users;
+    }
+
+    public function softDelete($data = array(), $id = NULL)
+    {
+      $users = User::where('id', $id)->update($data);
+      return $users;
+    }
 }

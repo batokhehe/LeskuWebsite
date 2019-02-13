@@ -306,13 +306,6 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/class"><i class="fa fa-circle-o"></i> Manage Class Les</a></li>
-            <li><a href="/income"><i class="fa fa-circle-o"></i> Manage Income</a></li>
-            <li><a href="/order"><i class="fa fa-circle-o"></i> Manage Order Les</a></li>
-            <li><a href="/product"><i class="fa fa-circle-o"></i> Manage Product</a></li>
-            <li><a href="/payment"><i class="fa fa-circle-o"></i> Manage Payment</a></li>
-            <li><a href="/rating"><i class="fa fa-circle-o"></i> Manage Rating</a></li>
-            <!-- <li><a href="/user"><i class="fa fa-circle-o"></i> Manage User</a></li> -->
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-circle-o"></i> <span> Manage User</span>
@@ -321,10 +314,28 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="/class"><i class="fa fa-circle-o"></i> Manage Student</a></li>
-                <li><a href="/income"><i class="fa fa-circle-o"></i> Manage Teacher</a></li>
+                <!-- <li><a href="/class"><i class="fa fa-circle-o"></i> Manage Student</a></li> -->
+                <li><a href="/user"><i class="fa fa-circle-o"></i> Manage Teacher</a></li>
               </ul>
             </li>
+            <li><a href="/class"><i class="fa fa-circle-o"></i> Manage Class Les</a></li>
+            <li><a href="/income"><i class="fa fa-circle-o"></i> Manage Income</a></li>
+            <li><a href="/order"><i class="fa fa-circle-o"></i> Manage Order Les</a></li>
+            <li><a href="/product"><i class="fa fa-circle-o"></i> Manage Product</a></li>
+            <li><a href="/payment"><i class="fa fa-circle-o"></i> Manage Payment</a></li>
+            <li><a href="/rating"><i class="fa fa-circle-o"></i> Manage Rating</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-line-chart"></i>
+            <span>Transaction</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/payment_verification"><i class="fa fa-circle-o"></i> Payment Verification</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -623,14 +634,23 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
+    $('#example1').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      'xScroll'     : true
+    })
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
       'ordering'    : true,
       'info'        : true,
-      'autoWidth'   : false
+      'autoWidth'   : true,
+      'xScroll'     : true
     })
   })
 </script>
