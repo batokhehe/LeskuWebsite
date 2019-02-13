@@ -41,7 +41,7 @@ Route::post('/profile/store', 'TeacherController@store')->name('teacher.store');
 
 // Email related routes
 Route::get('mail/send', 'MailController@send');
-// Route::get('auth/verification', 'Auth\RegisterController@email_verification');
+Route::get('auth/verification', 'Auth\RegisterController@email_verification');
 
 
 
