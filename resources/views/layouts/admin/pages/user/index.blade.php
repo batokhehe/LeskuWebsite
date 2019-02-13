@@ -29,7 +29,7 @@
 						</div>
 						@endif
 						<div class="box-header">
-		          <h3 class="box-title">Data Table User</h3>
+		          <h3 class="box-title">Data Table Teacher</h3>
 							<a href="/<?php echo $module ?>/create" type="button" class="btn btn-info pull-right">Create</a>
 		        </div>
             <!-- /.box-header -->

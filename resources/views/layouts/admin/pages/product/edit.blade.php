@@ -30,9 +30,16 @@
 							</div>
 							@endif
 
-    					<form class="form-horizontal" action="{{ url('/' . $module . '/update/' . $product->id) }}" method="post">
+    					<form class="form-horizontal" action="{{ url('/' . $module . '/update/' . $product->id) }}" method="post" enctype="multipart/form-data">
 								{{csrf_field()}}
     							<div class="box-body">
+										<div class="form-group">
+                      <label for="img" class="col-sm-2 control-label">Image</label>
+                      <div class="col-sm-10">
+                        <input type="file" id="input_product" class="validate" name="img">
+												<img src="{{ url('img/products/'.$product->img) }}" id="show_product">
+                      </div>
+                    </div>
     								<div class="form-group">
     									<label for="first_name" class="col-sm-2 control-label">Name</label>
     									<div class="col-sm-10">

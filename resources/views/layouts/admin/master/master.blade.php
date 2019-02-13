@@ -321,8 +321,8 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="/class"><i class="fa fa-circle-o"></i> Manage Student</a></li>
-                <li><a href="/income"><i class="fa fa-circle-o"></i> Manage Teacher</a></li>
+                <!-- <li><a href="/class"><i class="fa fa-circle-o"></i> Manage Student</a></li> -->
+                <li><a href="/user"><i class="fa fa-circle-o"></i> Manage Teacher</a></li>
               </ul>
             </li>
           </ul>

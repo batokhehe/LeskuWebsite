@@ -36,25 +36,25 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function getAll()
   {
-    $users = Users::whereNull('deleted_at')->get();
+    $users = User::whereNull('deleted_at')->get();
     return $users;
   }
 
   public function find($id)
   {
-    $users = Users::where('id', $id)->first();
+    $users = User::where('id', $id)->first();
     return $users;
   }
 
   public function update($data = array(), $id = NULL)
   {
-    $users = Users::where('id', $id)->update($data);
+    $users = User::where('id', $id)->update($data);
     return $users;
   }
 
   public function softDelete($data = array(), $id = NULL)
   {
-    $users = Users::where('id', $id)->update($data);
+    $users = User::where('id', $id)->update($data);
     return $users;
   }
 }

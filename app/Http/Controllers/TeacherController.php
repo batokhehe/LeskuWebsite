@@ -118,19 +118,19 @@ class TeacherController extends Controller
 
           $image       = $request->file('image');
           $imagename   = $image->getClientOriginalName();
-          $request->file('image')->move("image/", $imagename);
+          $request->file('image')->move("img/teacher_profile", $imagename);
 
           $id_card       = $request->file('id_card');
           $id_cardname   = $id_card->getClientOriginalName();
-          $request->file('id_card')->move("id_card/", $id_cardname);
+          $request->file('id_card')->move("documents/id", $id_cardname);
 
           $cv_file       = $request->file('cv_file');
           $cv_filename   = $cv_file->getClientOriginalName();
-          $request->file('cv_file')->move("cv/", $cv_filename);
+          $request->file('cv_file')->move("documents/cv", $cv_filename);
 
           $certificate       = $request->file('certificate');
           $certificatename   = $certificate->getClientOriginalName();
-          $request->file('certificate')->move("certificate/", $certificatename);
+          $request->file('certificate')->move("documents/certificate", $certificatename);
 
     $data = array(
       'name' => $request->post('name'),

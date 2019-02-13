@@ -45,7 +45,7 @@ class ProductController extends Controller
 
         $image           = $request->file('img');
         $image_product   = $image->getClientOriginalName();
-        $request->file('img')->move("image/products", $image_product);
+        $request->file('img')->move("img/products", $image_product);
 
 
       $products = new Product([
@@ -83,6 +83,7 @@ class ProductController extends Controller
       $validator = Validator::make($request->all(), [
         'name' => 'required',
         'description' => 'required',
+        'img' => 'required',
         'min_order' => 'required',
         'max_order' => 'required',
         'multiple' => 'required'
@@ -93,6 +94,10 @@ class ProductController extends Controller
                       ->withErrors($validator)
                       ->withInput();
       }
+
+      $image           = $request->file('img');
+      $image_product   = $image->getClientOriginalName();
+      $request->file('img')->move("img/products", $image_product);
 
       $products = new Product;
       $data = array(

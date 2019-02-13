@@ -77,7 +77,7 @@
                                         <div class="col-lg-9">
                                             <!-- <input class="form-control" type="file" name="image" value="{{ $teacher->image }}"> -->
                                             <input type="file" id="inputimage" name="image" class="validate"/ >
-                                            <img src="{{ asset('image/'.$teacher->image) }}" id="showimage">
+                                            <img src="{{ url('img/teacher_profile/'.$teacher->image) }}" id="showimage">
                                         </div>
                                     </div>
                                     <div class="form-group row">

@@ -25,6 +25,7 @@
                 <thead>
                 <tr>
                   <th>No</th>
+									<th></th>
                   <th>Product Name</th>
                   <th>Description</th>
                   <th>Minimal Order</th>
@@ -38,6 +39,7 @@
                   @foreach ($products as $product)
                   <tr>
 										<td>{{ $i }}</td>
+										<td><img src="{{ url('img/products/'.$product->img) }}" id="show_product" style="max-width: 100%;"></td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->min_order }}</td>
