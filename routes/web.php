@@ -41,7 +41,7 @@ Route::post('/profile/store', 'TeacherController@store')->name('teacher.store');
 
 // Email related routes
 Route::get('mail/send', 'MailController@send');
-Route::get('auth/verification', 'Auth\RegisterController@email_verification');
+// Route::get('auth/verification', 'Auth\RegisterController@email_verification');
 
 
 
@@ -75,13 +75,9 @@ Route::post('/user/update/{id}', 'UserController@update');
 Route::get('/user/delete/{id}', 'UserController@delete');
 
 // Admin-transaction
-Route::get('/payment_verification', 'Study_ClassController@index');
-Route::get('/user/create', function () {
-    return view('layouts.admin.pages.user.create');
-});
-Route::post('/user/store', 'UserController@store')->name('user.store');
-Route::get('/payment_verification/edit/{id}', 'Study_ClassController@edit');
-Route::post('/user/update/{id}', 'UserController@update');
+Route::get('/payment_verification', 'StudyClassController@index');
+Route::get('/payment_verification/edit/{id}', 'StudyClassController@edit');
+Route::post('/payment_verification/update/{id}', 'StudyClassController@update');
 Route::get('/user/delete/{id}', 'UserController@delete');
 
 // Route::get('/home', 'HomeController@index')->name('home');

@@ -16,6 +16,10 @@ class StudyClass extends Model
 
     protected $table = 'study_classes';
     protected $table2 = 'products';
+		protected $table3 = 'users';
+		protected $table4 = 'study_class_details';
+		protected $table5 = 'subjects';
+		protected $table6 = 'teachers';
 
     public function unpaid($user_id = null){
     	$query = $this->select(
@@ -36,28 +40,19 @@ class StudyClass extends Model
                 return $query;
     }
 
-		public function update_token($data, $id){
-        $user = StudyClass::where('id', $id)->update($data);
-
-        return $user;
-    }
-
-		protected $table_1 = 'study_classes';
-		protected $table_2 = 'users';
-		protected $table_3 = 'products';
-
-		public function paymetVerification()
+		public function paymentVerification()
     {
 			$query = $this->select(
-						$this->table_1 . '.id',
-						$this->table_2 . '.username',
-						$this->table_3 . '.name',
+						$this->table. '.id',
+						$this->table3 . '.username',
+						$this->table2 . '.name',
 						$this->table . '.ordered_assembly',
 						$this->table . '.ordered_subject',
 						$this->table . '.status'
 					)
-					->join($this->table_2, $this->table_2 . '.id', '=', $this->table_1 . '.user_id')
-					->join($this->table_3, $this->table_3 . '.id', '=', $this->table_1 . '.product_id')
+					->join($this->table3, $this->table3 . '.id', '=', $this->table . '.user_id')
+					->join($this->table2, $this->table2 . '.id', '=', $this->table . '.product_id')
+					->where($this->table . '.status', '1')
 								->get();
 
 								return $query;
@@ -65,14 +60,43 @@ class StudyClass extends Model
 
     public function find($id)
     {
-      $users = StudyClass::where('id', $id)->first();
-      return $users;
+			$query = $this->select(
+						$this->table. '.id',
+						$this->table3 . '.first_name',
+						$this->table3 . '.last_name',
+						$this->table2 . '.name as product_name',
+						$this->table . '.ordered_assembly',
+						$this->table . '.ordered_subject',
+						$this->table . '.status'
+					)
+					->join($this->table3, $this->table3 . '.id', '=', $this->table . '.user_id')
+					->join($this->table2, $this->table2 . '.id', '=', $this->table . '.product_id')
+					->where($this->table. '.id', $id)
+								->first();
+
+								return $query;
+    }
+
+		public function findDetail($id)
+    {
+			$query = $this->select(
+						$this->table6. '.name as teacher_name',
+						$this->table5 . '.name as subject_name',
+						$this->table4 . '.study_start_at'
+					)
+					->from($this->table4)
+					->join($this->table6, $this->table6 . '.id', '=', $this->table4 . '.teacher_id')
+					->join($this->table5, $this->table5 . '.id', '=', $this->table4 . '.subject_id')
+					->where($this->table4. '.study_class_id', $id)
+								->get();
+
+								return $query;
     }
 
     public function update($data = array(), $id = NULL)
     {
-      $users = StudyClass::where('id', $id)->update($data);
-      return $users;
+      $query = StudyClass::where('id', $id)->update($data);
+      return $query;
     }
 
     public function softDelete($data = array(), $id = NULL)

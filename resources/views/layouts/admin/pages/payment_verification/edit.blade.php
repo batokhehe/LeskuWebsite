@@ -12,6 +12,8 @@
         | Your Page Content Here |
         -------------------------->
 		<div class="row">
+			<form class="form-horizontal" action="{{ url('/' . $module . '/update/' . $header->id) }}" method="post" enctype="multipart/form-data">
+				{{csrf_field()}}
         <div class="col-md-12">
           <div class="box">
 						@if(count($errors) > 0)
@@ -29,42 +31,56 @@
 						</div>
 						@endif
 						<div class="box-header">
-		          <h3 class="box-title">Data Table Payment Verification</h3>
+		          <h3 class="box-title">Data Table Detail</h3>
 		        </div>
             <!-- /.box-header -->
             <div class="box-body">
 
-              <table id="example1" class="table table-bordered table-striped table-responsive" width="100%">
+							<div class="col-md-12">
+								<table class="table table-responsive" width="100%">
+									<tr>
+										<th width="30%">Student Name</th>
+										<td>: {{ $header->first_name . ' ' . $header->last_name }}</td>
+									</tr>
+									<tr>
+										<th width="30%">Product Name</th>
+										<td>: {{ $header->product_name }}</td>
+									</tr>
+								</table>
+							</div>
+
+              <table class="table table-bordered table-striped table-responsive" width="100%">
                 <thead>
                 <tr>
                   <th>No</th>
-                  <th>Name</th>
-                  <th>Product</th>
-									<th>Status</th>
-                  <th>Action</th>
+                  <th>Teacher Name</th>
+                  <th>Subject Name</th>
+									<th>Study Start At</th>
                 </tr>
                 </thead>
                 <tbody>
 									@php ($i = 1)
-                  @foreach ($study_classes as $user)
+                  @foreach ($details as $detail)
                   <tr>
 										<td>{{ $i }}</td>
-                    <td>{{ $user->username }}</td>
-                    <td>{{ $user->name }}</td>
-										<td><?php echo $user->status == '1' ? 'Pay' : 'Active' ?></td>
-                    <td align="center">
-											<a href="{{ url('/' . $module . '/edit/' . $user->id) }}" type="button" class="btn-sm btn-primary"><i class="fa fa-edit"></i>&nbsp;Edit</a> &nbsp;
-											<a href="{{ url('/' . $module . '/delete/' . $user->id) }}" type="button" class="btn-sm btn-danger"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+                    <td>{{ $detail->teacher_name }}</td>
+                    <td>{{ $detail->subject_name }}</td>
+										<td>{{ $detail->study_start_at }}</td>
                   </tr>
 									@php ($i++)
                   @endforeach
                 </tbody>
               </table>
+							<div class="box-footer">
+								<button type="submit" class="btn btn-info pull-right">Update</button>
+							</div>
+								<!-- /.box-footer -->
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
+				</form>
       </div>
 
     </section>

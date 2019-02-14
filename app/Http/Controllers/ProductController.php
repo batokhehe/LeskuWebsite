@@ -112,7 +112,7 @@ class ProductController extends Controller
 
       return redirect('product')
               ->with('success', 'Data Updated')
-              ->with('module', $this->module);;
+              ->with('module', $this->module);
     }
 
     public function delete($id)
