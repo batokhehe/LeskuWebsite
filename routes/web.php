@@ -80,7 +80,7 @@ Route::get('/user/create', function () {
     return view('layouts.admin.pages.user.create');
 });
 Route::post('/user/store', 'UserController@store')->name('user.store');
-Route::get('/user/edit/{id}', 'UserController@edit');
+Route::get('/payment_verification/edit/{id}', 'Study_ClassController@edit');
 Route::post('/user/update/{id}', 'UserController@update');
 Route::get('/user/delete/{id}', 'UserController@delete');
 
