@@ -25,6 +25,7 @@ class Students extends Migration
         $table->string('phone_number');
         $table->text('image');
         $table->integer('user_id');
+        $table->decimal('saldo', 10, 0);
         $table->timestamps();
       });
     }

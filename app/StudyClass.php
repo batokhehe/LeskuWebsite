@@ -24,7 +24,7 @@ class StudyClass extends Model
     				$this->table2 . '.name as product_name',
     				$this->table . '.ordered_assembly',
     				$this->table . '.ordered_subject',
-    				$this->table . '.trf_file',
+    				// $this->table . '.trf_file',
     				$this->table . '.created_at',
     				$this->table . '.status'
     			)

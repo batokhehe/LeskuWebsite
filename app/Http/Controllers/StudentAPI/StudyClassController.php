@@ -4,6 +4,7 @@ namespace App\Http\Controllers\StudentAPI;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Product; 
 use App\StudyClass; 
 use App\StudyClassDetail; 
 use App\Notifications\NotificationHelper; 
@@ -18,6 +19,7 @@ class StudyClassController extends Controller
 
     public function __construct()
     {
+        $this->product_mdl =  new Product();
         $this->study_class_mdl =  new StudyClass();
         $this->study_class_detail_mdl =  new StudyClassDetail();
         $this->notification_helper = new NotificationHelper();
@@ -80,13 +82,20 @@ class StudyClassController extends Controller
             );
         }   
 
+        $product = $this->product_mdl->where('id', $product_id)->first();
+
+        $created_at = date('Y-m-d H:i', strtotime($study_class->created_at));
+        $return = array(
+                'price' => $product->price,
+                'ordered_assembly' => $ordered_assembly,
+                'ordered_subject' => count($ordered_subject),
+                'created_at' => $created_at,
+            );
+
         $this->study_class_detail_mdl->insert($details);
 
         return response()->json(
-                [
-                    'status' => $this->successStatus,
-                    'response' => 'Data Inserted'
-                ], 
+                $return, 
                 $this->successStatus
             ); 
     }
