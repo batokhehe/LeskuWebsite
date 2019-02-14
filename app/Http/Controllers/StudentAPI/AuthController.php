@@ -43,7 +43,6 @@ class AuthController extends Controller
             'last_name' => $request->lname,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'app_img' => $this->blankphoto,
             'type' => '0',
             'group_id' => '0',
             'activation_code' => $activation_code,
@@ -63,6 +62,7 @@ class AuthController extends Controller
 	            'phone_number' => $request->phone_number,
 	            'level_id' => $request->studylevelid,
 	            'user_id' => $user->id,
+	            'image' => $this->blankphoto,
 	        ]);
 
 	        $student->save();
@@ -106,11 +106,12 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if($user->email_verified_at != null){
+            	$student_mdl = new Student;
             	$success['first_name'] = $user->first_name;
 	            $success['last_name'] = $user->last_name;
 	            $success['email'] = $user->email;
 	            $success['token'] =  $user->createToken('LeskuApp')->accessToken; 
-	            $success['app_img'] = $user->app_img;
+	            $success['app_img'] = $student_mdl->where('user_id', $user->id)->first()->image;
 
 	            $user_mdl = new User;
 

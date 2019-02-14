@@ -99,5 +99,21 @@ class RegisterController extends Controller
       return $users;
     }
 
+    public function email_verification(Request $request)
+    {
+        $data = array(
+            'activation_code' => null,
+            'email_verified_at' => now(),
+        );
+
+        $user = new User;
+        $result = $user->where('activation_code', $request->input('code'))->update($data);
+
+        if($result){
+            redirect('/');
+        } else {
+            abort(404);
+        }
+    }
     
 }
