@@ -8,8 +8,11 @@ use App\Subject;
 use App\StudyLevel;
 use App\TeacherStudyLevel;
 use App\TeacherSubject;
+use App\Exports\TeacherScheduleExport;
+use App\Imports\TeacherScheduleImport;
 use Validator;
 use Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TeacherController extends Controller
 {
@@ -210,7 +213,7 @@ class TeacherController extends Controller
 
     return redirect('/profile')
             ->with('success', 'Data Updated')
-            ->with('module', $this->module);;
+            ->with('module', $this->module);
   }
 
   public function delete($id)
@@ -228,5 +231,20 @@ class TeacherController extends Controller
               ->with('success', 'Data Deleted')
               ->with('module', $this->module);
     }
+  }
+
+  public function importFile(Request $request){
+    if($request->hasFile('import_schedule')){
+      $path = $request->file('import_schedule')->getRealPath();
+      Excel::import(new TeacherScheduleImport, $path);
+      return redirect('profile')
+            ->with('success', 'Data Deleted')
+            ->with('module', $this->module);
+    }   
+  } 
+
+  public function exportFile($type){
+    // $products = Product::get()->toArray();
+    return Excel::download(new TeacherScheduleExport, 'schedule_template.xlsx');
   }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Teacher_subject extends Migration
+class TeacherSubject extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class Teacher_subject extends Migration
       Schema::create('teacher_subjects', function (Blueprint $table) {
         $table->increments('id');
         $table->string('teacher_id');
-        $table->string('study_level_id');
+        $table->string('subject_id');
         $table->timestamps();
       });
     }

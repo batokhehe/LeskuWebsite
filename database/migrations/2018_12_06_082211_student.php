@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Students extends Migration
+class Student extends Migration
 {
     /**
      * Run the migrations.
@@ -25,7 +25,7 @@ class Students extends Migration
         $table->string('phone_number');
         $table->longtext('image');
         $table->integer('user_id');
-        $table->decimal('saldo', 10, 0);
+        $table->decimal('balance', 10, 0)->default('0');
         $table->timestamps();
       });
     }

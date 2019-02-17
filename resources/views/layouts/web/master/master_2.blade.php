@@ -314,7 +314,7 @@
 	});
 
 	$("#inputcertificate").change(function () {
-			readURL(this, 'showcertificate');
+			readURL(this, 'showcertificate', 'certificate_blank');
 	});
 
 </script>

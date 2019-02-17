@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class StudyClasses extends Migration
+class SubjectStudyLevel extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class StudyClasses extends Migration
      */
     public function up()
     {
-      Schema::create('study_classes', function (Blueprint $table) {
+      Schema::create('subject_study_levels', function (Blueprint $table) {
         $table->increments('id');
-        $table->integer('user_id');
-        $table->integer('product_id');
-        $table->string('ordered_assembly');
-        $table->string('ordered_subject');
-        $table->text('trf_file')->nullable();
-        $table->integer('status');
+        $table->integer('id_subjects');
+        $table->integer('id_study_levels');
         $table->timestamps();
       });
     }
@@ -32,6 +28,6 @@ class StudyClasses extends Migration
      */
     public function down()
     {
-      Schema::dropIfExists('study_classes');
+        Schema::dropIfExists('subject_study_levels');
     }
 }

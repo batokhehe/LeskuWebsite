@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class SubjectStudyLevels extends Migration
+class TeacherSchedule extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class SubjectStudyLevels extends Migration
      */
     public function up()
     {
-      Schema::create('subject_study_levels', function (Blueprint $table) {
+      Schema::create('teacher_schedules', function (Blueprint $table) {
         $table->increments('id');
-        $table->integer('id_subjects');
-        $table->integer('id_study_levels');
+        $table->string('teacher_id');
+        $table->integer('status');
+        $table->integer('study_class_detail_id')->nullable();
+        $table->timestamp('schedule_date');
         $table->timestamps();
       });
     }
@@ -28,6 +30,6 @@ class SubjectStudyLevels extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subject_study_levels');
+        Schema::dropIfExists('teacher_schedules');
     }
 }

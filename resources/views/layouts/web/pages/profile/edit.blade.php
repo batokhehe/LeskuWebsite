@@ -165,23 +165,32 @@
                                         <label class="col-lg-3 col-form-label form-control-label">ID Card</label>
                                         <div class="col-lg-9">
                                             <!-- <input class="form-control" type="file" name="id_card" value="{{ $teacher->id_card }}"> -->
-                                            <input type="file" id="inputid" name="id_card" class="validate"/ >
+                                            <input type="file" id="inputid" name="id_card" class="validate" accept=".jpeg, .jpg, .png" />
                                             <img src="{{ url('doc/id/'.$teacher->id_card) }}" id="showid">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label form-control-label">Curriculum Vitae</label>
                                         <div class="col-lg-9">
-                                            <input class="form-control" id="inputcv" type="file" name="cv_file" value="{{ $teacher->cv_file }}">
-                                            <img id="cv_blank" src="{{ url('doc/blank_pdf.png') }}" width="100px" <?php echo $teacher->cv_file != '' ? 'style="display: none;"' : '' ?> />
-                                            <iframe src="{{ url('doc/cv/' . $teacher->cv_file) }} ?>" frameborder="0" style="width:100%;min-height:320px;<?php echo $teacher->cv_file != '' ? '' : 'display: none;' ?>" id="showcv"></iframe>
+                                            <input class="form-control" id="inputcv" type="file" name="cv_file" value="{{ $teacher->cv_file }}" accept=".jpeg, .jpg, .png, .pdf">
+                                            <img id="cv_blank" src="{{ url('doc/blank_pdf.png') }}" width="100px" 
+                                            <?php echo $teacher->cv_file != '' ? 'style="display: none;"' : '' ?> 
+                                             />
+                                            <iframe src="{{ url('doc/cv/' . $teacher->cv_file) }} ?>" frameborder="0" style="width:100%;min-height:320px;
+                                            <?php echo $teacher->cv_file != '' ? '' : 'display: none;' ?>" 
+                                            id="showcv"></iframe>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label form-control-label">Ijazah & Transkrip Nilai</label>
                                         <div class="col-lg-9">
-                                            <input class="form-control" id="showcertificate" type="file" name="certificate" value="{{ $teacher->certificate }}">
-                                            <iframe src="{{ url('doc/certificate/' . $teacher->certificate) }}" frameborder="0" style="width:100%;min-height:320px;" id="showcertificate"></iframe>
+                                            <input class="form-control" id="showcertificate" type="file" name="certificate" value="{{ $teacher->certificate }}" accept=".jpeg, .jpg, .png, .pdf">
+                                            <img id="certificate_blank" src="{{ url('doc/blank_pdf.png') }}" width="100px" 
+                                            <?php echo $teacher->certificate != '' ? 'style="display: none;"' : '' ?> 
+                                             />
+                                            <iframe src="{{ url('doc/certificate/' . $teacher->certificate) }}" frameborder="0" style="width:100%;min-height:320px;
+                                            <?php echo $teacher->certificate != '' ? '' : 'display: none;' ?>" 
+                                            id="showcertificate"></iframe>
                                         </div>
                                     </div>
                                     <div class="form-group row">

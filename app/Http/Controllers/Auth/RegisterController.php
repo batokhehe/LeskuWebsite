@@ -83,14 +83,7 @@ class RegisterController extends Controller
       if($users && $user_id){
         $teacher = new Teacher([
           'name' => $data['first_name'] . ' ' . $data['last_name'],
-          'address' => ' ',
           'email' => $data['email'],
-          'phone_number' => ' ',
-          'graduated' => ' ',
-          'image' => ' ',
-          'cv_file' => ' ',
-          'certificate' => ' ',
-          'id_card' => ' ',
           'user_id' => $user_id
         ]);
         $teacher->save();

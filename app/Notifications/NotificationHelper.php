@@ -9,6 +9,8 @@ class NotificationHelper
 
     public function send_to_specific_user($user_firebase_id, $title, $multiple_type, $type)
     {
+        //multiple = 0 :: Single
+        //type = = 0 :: Student
         $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
         $notification = [
@@ -24,9 +26,9 @@ class NotificationHelper
         ];
 
         if($multiple_type == '0'){
-            $fcmNotification['registration_ids'] = $user_firebase_id; //multple token array
-        } else {
             $fcmNotification['to'] = $user_firebase_id; //single token
+        } else {
+            $fcmNotification['registration_ids'] = $user_firebase_id; //multple token array
         }
 
         if($type == '0'){
