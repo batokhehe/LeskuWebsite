@@ -46,6 +46,10 @@
 										<th width="30%">Product Name</th>
 										<td>: {{ $header->product_name }}</td>
 									</tr>
+									<tr>
+										<th width="30%">Transfer Image</th>
+										<td>: <img src="{{ base64_decode($header->trf_file) }}"/></td>
+									</tr>
 								</table>
 							</div>
 

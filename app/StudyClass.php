@@ -34,6 +34,7 @@ class StudyClass extends Model
     			)
     			->join($this->table2, $this->table2 . '.id', '=', $this->table . '.product_id')
                 ->whereIn($this->table . '.status', [0, 1])
+                // ->where($this->table . )
                 ->orderBy($this->table . '.status')
                 ->get();
 
@@ -67,7 +68,8 @@ class StudyClass extends Model
 						$this->table2 . '.name as product_name',
 						$this->table . '.ordered_assembly',
 						$this->table . '.ordered_subject',
-						$this->table . '.status'
+						$this->table . '.status',
+                        $this->table . '.trf_file'
 					)
 					->join($this->table3, $this->table3 . '.id', '=', $this->table . '.user_id')
 					->join($this->table2, $this->table2 . '.id', '=', $this->table . '.product_id')

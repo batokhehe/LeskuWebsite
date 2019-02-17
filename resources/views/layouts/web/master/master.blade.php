@@ -35,6 +35,8 @@
 	<link href="//fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<!--//web-fonts-->
 	<!--//fonts-->
+	<!-- Date Picker -->
+	<link rel="stylesheet" href="{{ url('/assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
 	<!-- js -->
 </head>
 
@@ -208,6 +210,8 @@
 
 
 	<script type="text/javascript" src="{{ url('') }}/assets/js_1/jquery-2.1.4.min.js"></script>
+	<!-- datepicker -->
+	<script src="{{ url ('/assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 	<!-- flexSlider -->
 	<script defer src="{{ url('') }}/assets/js_1/jquery.flexslider.js"></script>
 	<script type="text/javascript">

@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\StudyClass;
+use App\Notifications\NotificationHelper; 
 use Validator;
 
 class StudyClassController extends Controller
 {
     // private $module = '';
+    public function __construct()
+    {
+      $this->notifications_helper = new NotificationHelper();
+    }
 
     Public function index()
     {
@@ -43,7 +48,13 @@ class StudyClassController extends Controller
       $data = array(
         'status' => '2',
       );
-      $data = $study_classes->update($data, $id);
+      $result = $study_classes->update($data, $id);
+
+      // if($result){
+      //   $study_class_detail = new StudyClassDetail;
+      //   $data = $study_class_detail->where('study_class_id', $id);
+      //   $this->notifications_helper($user_firebase_id, $title, $multiple_type, $type);
+      // }
 
       $module = 'payment_verification';
       return redirect('payment_verification')

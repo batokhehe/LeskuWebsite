@@ -7,7 +7,7 @@ class NotificationHelper
     protected $student_key = "AIzaSyCFXYYWMYXLrn-U7IlcBIH7Lo1YJO2_Xsg";
     
 
-    public function send_to_specific_user($user_firebase_id, $title, $type)
+    public function send_to_specific_user($user_firebase_id, $title, $multiple_type, $type)
     {
         $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
@@ -16,17 +16,23 @@ class NotificationHelper
             'sound' => true,
         ];
         
-        $extraNotificationData = ["message" => $notification,"moredata" =>'dd'];
+        $extraNotificationData = ["message" => $notification, "moredata" =>'dd'];
 
         $fcmNotification = [
             'notification' => $notification,
             'data' => $extraNotificationData
         ];
 
-        if($type == '0'){
+        if($multiple_type == '0'){
             $fcmNotification['registration_ids'] = $user_firebase_id; //multple token array
         } else {
             $fcmNotification['to'] = $user_firebase_id; //single token
+        }
+
+        if($type == '0'){
+            $key = $this->student_key;
+        } else {
+            $key = $this->teacher_key;
         }
             
 

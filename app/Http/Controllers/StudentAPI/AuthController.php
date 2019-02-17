@@ -111,7 +111,11 @@ class AuthController extends Controller
 	            $success['last_name'] = $user->last_name;
 	            $success['email'] = $user->email;
 	            $success['token'] =  $user->createToken('LeskuApp')->accessToken; 
-	            $success['app_img'] = $student_mdl->where('user_id', $user->id)->first()->image;
+
+	            $student = $student_mdl->where('user_id', $user->id)->first();
+	            $success['app_img'] = $student->image;
+	            $success['address'] = $student->address;
+	            $success['phone_number'] = $student->phone_number;
 
 	            $user_mdl = new User;
 

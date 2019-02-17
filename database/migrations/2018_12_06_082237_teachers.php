@@ -16,10 +16,12 @@ class Teachers extends Migration
       Schema::create('teachers', function (Blueprint $table) {
         $table->increments('id');
         $table->string('name');
+        $table->timestamps('date_of_birth');
         $table->string('address');
         $table->string('email');
         $table->string('phone_number');
         $table->string('graduated');
+        $table->string('major');
         $table->string('cv_file');
         $table->string('certificate');
         $table->string('id_card');
