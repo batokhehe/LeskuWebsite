@@ -29,6 +29,10 @@ class StudyClassDetail extends Model
     				$this->table . '.teacher_id',
     				$this->table3 . '.name as teacher_name',
     				$this->table3 . '.image as teacher_image',
+                    $this->table3 . '.date_of_birth',
+                    $this->table3 . '.graduated',
+                    $this->table3 . '.major',
+                    $this->table3 . '.address',
     				$this->table . '.study_start_at'
     			)
     			->join($this->table2, $this->table2 . '.id', '=', $this->table . '.subject_id')
@@ -57,6 +61,27 @@ class StudyClassDetail extends Model
                 ->where($this->table3 . '.user_id', $user_id)
                 ->where($this->table . '.status', '0')
                 ->where($this->table4 . '.status', '2')
+                ->get();
+
+                return $query;
+    }
+
+    public function find_data_for_email($study_class_id = null, $user_id = null){
+        $query = $this->select(
+                    $this->table . '.id', 
+                    $this->table . '.study_class_id', 
+                    $this->table . '.subject_id',
+                    $this->table2 . '.name as subject_name',
+                    $this->table3 . '.name as teacher_name',
+                    $this->table . '.study_start_at',
+                    $this->table . '.unique_code'
+                )
+                ->join($this->table2, $this->table2 . '.id', '=', $this->table . '.subject_id')
+                ->join($this->table3, $this->table3 . '.id', '=', $this->table . '.teacher_id')
+                ->join($this->table4, $this->table4 . '.id', '=', $this->table . '.study_class_id')
+                ->where($this->table . '.study_class_id', $study_class_id)
+                ->where($this->table4 . '.user_id', $user_id)
+                ->where($this->table4 . '.status', '3')
                 ->get();
 
                 return $query;

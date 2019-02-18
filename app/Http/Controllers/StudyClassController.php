@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\StudyClass;
 use App\Student;
 use App\StudyClassDetail;
+use App\Teacher;
 use App\User;
 use App\Notifications\NotificationHelper; 
 use Validator;
@@ -18,6 +19,7 @@ class StudyClassController extends Controller
       $this->student_mdl = new Student;
       $this->study_class_mdl = new StudyClass;
       $this->study_class_detail_mdl = new StudyClassDetail;
+      $this->teacher_mdl = new Teacher;
       $this->notifications_helper = new NotificationHelper();
       $this->user_mdl = new User;
     }
@@ -54,15 +56,22 @@ class StudyClassController extends Controller
       $result = $this->study_class_mdl->update($data, $id);
 
       if($result){
-        $dataStudent = array(
+        $data_student = array(
                         'balance' => $study_class->ordered_assembly * 100
                       );
-        $resultStudent = $this->student_mdl->where('user_id', $study_class->user_id)->update($dataStudent);
-        $user = $this->user_mdl->where('user_id', $study_class->user_id)->first();
+        $result_student = $this->student_mdl->where('user_id', $study_class->user_id)->update($data_student);
+        $user_student = $this->user_mdl->where('id', $study_class->user_id)->first();
 
-        // $study_class_detail = new StudyClassDetail;
-        // $data = $study_class_detail->where('study_class_id', $id);
-        $this->notifications_helper->send_to_specific_user($user->firebase_app_id, 'Pemesanan telah diverfikasi', 0, 0);
+        $study_class_details = $this->study_class_detail_mdl->where('study_class_id', $id)->get();
+        foreach ($study_class_details as $key => $value) {
+          $teacher = $this->teacher_mdl->where('id', $value->teacher_id)->first();
+          $user = $this->user_mdl->where('id', $teacher->user_id)->first();
+          $teachers[] = $user->app_firebase_id;
+        }
+
+        $this->notifications_helper->send_to_specific_user($teachers, 'Ada pesanan', 1, 1);
+
+        $this->notifications_helper->send_to_specific_user($user_student->app_firebase_id, 'Pemesanan telah diverifikasi', 0, 0);
       }
 
       $module = 'payment_verification';

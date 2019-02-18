@@ -30,6 +30,7 @@ class NotificationHelper
         } else {
             $fcmNotification['registration_ids'] = $user_firebase_id; //multple token array
         }
+        // $fcmNotification['to'] = 'dIqQ_dKwxFU:APA91bG48B2Uw07fFbh-Jdsx62TLzUeI5dt8iAw327jkYlh34PaM8VV0JX2RtBsMRqDfmQZPwSA3qJ94jczRhRN98zhsTUz02TpdsQLao-JET3eb8ftb_SdsuRCCjq2N505qTzth8yv8';
 
         if($type == '0'){
             $key = $this->student_key;
@@ -37,9 +38,8 @@ class NotificationHelper
             $key = $this->teacher_key;
         }
             
-
         $headers = [
-            'Authorization: key=' . $this->teacher_key,
+            'Authorization: key=' . $key,
             'Content-Type: application/json'
         ];
 

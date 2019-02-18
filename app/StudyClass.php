@@ -34,14 +34,14 @@ class StudyClass extends Model
     			)
     			->join($this->table2, $this->table2 . '.id', '=', $this->table . '.product_id')
                 ->whereIn($this->table . '.status', [0, 1])
-                // ->where($this->table . )
+                ->where($this->table . '.user_id', $user_id)
                 ->orderBy($this->table . '.status')
                 ->get();
 
                 return $query;
     }
 
-		public function paymentVerification()
+	public function paymentVerification()
     {
 			$query = $this->select(
 						$this->table. '.id',

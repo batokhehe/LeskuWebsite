@@ -18,7 +18,7 @@ class TeacherSchedule extends Migration
         $table->string('teacher_id');
         $table->integer('status');
         $table->integer('study_class_detail_id')->nullable();
-        $table->timestamp('schedule_date');
+        $table->timestamp('schedule_date')->nullable()->default(null);
         $table->timestamps();
       });
     }

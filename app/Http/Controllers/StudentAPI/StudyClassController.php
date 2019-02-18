@@ -7,10 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Product; 
 use App\StudyClass; 
 use App\StudyClassDetail; 
+use App\TeacherSchedule; 
 use App\Notifications\NotificationHelper; 
 use Illuminate\Support\Facades\Auth; 
 use Validator;
 use Illuminate\Support\Str;
+use DateTime;
+use DateTimeZone;
+use Carbon\Carbon;
 
 class StudyClassController extends Controller
 {
@@ -22,6 +26,7 @@ class StudyClassController extends Controller
         $this->product_mdl =  new Product();
         $this->study_class_mdl =  new StudyClass();
         $this->study_class_detail_mdl =  new StudyClassDetail();
+        $this->teacher_schedule_mdl =  new TeacherSchedule();
         $this->notification_helper = new NotificationHelper();
     }
 
@@ -71,15 +76,27 @@ class StudyClassController extends Controller
 
             // $var = str_replace('/', '-', $value['date']);
             // $date = date('Y-m-d H:i:s', strtotime($var));
+            $explode = explode(', ', $value['selectedSchedule']);
+            $new_date = date('Y-m-d H:i', strtotime($explode[1]));
             
-            $details[] = array(
+            $details = array(
                 'study_class_id' => $study_class_id,
                 'subject_id' => $value['subject'],
                 'teacher_id' => $value['teacherId'],
-                'study_start_at' => $value['selectedSchedule'] ? $value['selectedSchedule'] : null,
+                'study_start_at' => $new_date,
                 'unique_code' => $unique_code,
                 'status' => '0',
             );
+            $study_class_detail_result = $this->study_class_detail_mdl->create($details);
+
+            $teacher_schedule_data = array(
+                                    'status' => '1',
+                                    'study_class_detail_id' => $study_class_detail_result->id,
+                                );
+            $this->teacher_schedule_mdl
+                    ->where('teacher_id', $value['teacherId'])
+                    ->where('schedule_date', $new_date)
+                    ->update($teacher_schedule_data);
         }   
 
         $product = $this->product_mdl->where('id', $product_id)->first();
@@ -91,8 +108,6 @@ class StudyClassController extends Controller
                 'ordered_subject' => count($ordered_subject),
                 'created_at' => $created_at,
             );
-
-        $this->study_class_detail_mdl->insert($details);
 
         return response()->json(
                 $return, 
@@ -114,6 +129,15 @@ class StudyClassController extends Controller
 
         $result = $this->study_class_detail_mdl->detail($study_class_id);
 
+        foreach ($result as $key => $value) {
+            $result[$key]['teacher_age'] = date_diff(date_create($value->date_of_birth), date_create('now'))->y;
+            $date = date('D, d-M-Y H:i', strtotime($value->study_start_at));
+            $explode = explode(',', $date);
+            $month = $this->indonesian_day($explode[0]);
+            $new_date = $month . ', ' . $explode[1];
+            $result[$key]['study_start_at'] = $new_date;
+        }
+
         return response()->json(
                     $result, 
                 $this->successStatus
@@ -133,6 +157,16 @@ class StudyClassController extends Controller
         $user_id = $request->user()->id;
 
         $result = $this->study_class_mdl->unpaid($user_id);
+
+        // foreach ($result as $key => $value) {
+        //     $created_at = $value['created_at']->toDateTimeString();
+        //     $date = date('D, d-M-Y H:i', strtotime($created_at));
+        //     // $date = date('D, d-M-Y H:i', strtotime($value['created_at']->format('jS F Y h:i:s A')));
+        //     // $explode = explode(',', $date);
+        //     // $month = $this->indonesian_day($explode[0]);
+        //     // $new_date = $month . ', ' . $explode[1];
+        //     $result[$key]['created_at'] = $date;
+        // }
 
         return response()->json(
                     $result, 
@@ -180,5 +214,18 @@ class StudyClassController extends Controller
         $result = $this->notification_helper->send_to_specific_user($firebase_id, $message, $type);
 
         return $result;
+    }
+
+    public function indonesian_day($month){
+        $bulan = array(
+                    'Sun' => 'Minggu',
+                    'Mon' => 'Senin',
+                    'Tue' => 'Selasa',
+                    'Wed' => 'Rabu',
+                    'Thu' => 'Kamis',
+                    'Fri' => 'Jumat',
+                    'Sat' => 'Sabtu',
+                );
+        return $bulan[$month];
     }
 }

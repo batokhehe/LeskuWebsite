@@ -116,6 +116,7 @@ class AuthController extends Controller
 	            $success['app_img'] = $student->image;
 	            $success['address'] = $student->address;
 	            $success['phone_number'] = $student->phone_number;
+	            $success['balance'] = $student->balance;
 
 	            $user_mdl = new User;
 

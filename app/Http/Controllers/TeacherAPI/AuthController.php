@@ -36,7 +36,7 @@ class AuthController extends Controller
         if(Auth::attempt(['email' => request('email'), 'password' => request('password'), 'type' => 1])){ 
             $user = Auth::user();
 
-            if($user->email_verified_at != null){
+            // if($user->email_verified_at != null){
             	$data['first_name'] = $user->first_name;
 	            $data['last_name'] = $user->last_name;
 	            $data['email'] = $user->email;
@@ -64,15 +64,15 @@ class AuthController extends Controller
 	                ], 
 	                $this->successStatus
 	            ); 
-            } else {
-            	return response()->json(
-	                [
-	                    'status' => $this->failedStatus,
-	                    'response' => 'Unauthorized'
-	                ], 
-	                $this->failedStatus
-	            ); 
-            }
+            // } else {
+            // 	return response()->json(
+	           //      [
+	           //          'status' => $this->failedStatus,
+	           //          'response' => 'Unauthorized'
+	           //      ], 
+	           //      $this->failedStatus
+	           //  ); 
+            // }
         } else { 
             return response()->json(
                 [

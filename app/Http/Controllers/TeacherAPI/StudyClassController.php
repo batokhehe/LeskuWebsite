@@ -7,7 +7,10 @@ use App\Http\Controllers\Controller;
 use App\StudyClass;
 use App\StudyClassDetail;
 use App\Teacher;
+use App\User;
 use App\Notifications\NotificationHelper;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\LeskuEmailer;
 
 class StudyClassController extends Controller
 {
@@ -19,6 +22,7 @@ class StudyClassController extends Controller
         $this->study_class_mdl =  new StudyClass();
         $this->study_class_detail_mdl =  new StudyClassDetail();
         $this->teacher_mdl =  new Teacher();
+        $this->user_mdl =  new User();
         $this->notification_helper = new NotificationHelper();
     }
 
@@ -59,6 +63,28 @@ class StudyClassController extends Controller
         $data = array('status' => '1');
 
         $result = $this->study_class_detail_mdl->where('id', $request->id)->where('teacher_id', $teacher->id)->update($data);
+
+        $study_class_detail = $this->study_class_detail_mdl->where('id', $request->id)->first();
+        $study_class_count = $this->study_class_detail_mdl->where('study_class_id', $study_class_detail->study_class_id)->where('status', 0)->count();
+
+        // echo $study_class_count;
+
+        if($study_class_count < 1){
+            $study_class_data = array(
+                            'status' => '3'
+                        );
+            $this->study_class_mdl->where('id', $study_class_detail->study_class_id)->update($study_class_data);
+            $study_class_data = $this->study_class_mdl->where('id', $study_class_detail->study_class_id)->first();
+            $student_user_data = $this->user_mdl->where('id', $study_class_data->user_id)->first();
+            $study_class_detail_data = $this->study_class_detail_mdl->find_data_for_email($study_class_detail->study_class_id, $study_class_data->user_id);
+            $objEmailer = new \stdClass();
+            $objEmailer->name = $student_user_data->first_name . ' ' . $student_user_data->last_name;
+            $objEmailer->study_class_details = $study_class_detail_data;
+            $objEmailer->sender = 'Admin Lesku';
+            $objEmailer->receiver = $student_user_data->first_name . ' ' . $student_user_data->last_name;
+     
+            Mail::to($request->user()->email)->send(new LeskuEmailer($objEmailer));
+        }
 
         if($result){
 	        return response()->json(
