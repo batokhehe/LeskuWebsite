@@ -41,6 +41,9 @@ Route::group([
       'middleware' => 'auth:api'
     ], function() {
         /*---------- STUDENT -----------*/
+        //Account
+        Route::post('student/update_account', 'StudentAPI\StudentController@update');
+
     	//Product
         Route::get('products', 'StudentAPI\ProductController@all');
 

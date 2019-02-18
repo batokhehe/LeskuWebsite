@@ -36,43 +36,56 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-							<div class="col-md-12">
-								<table class="table table-responsive" width="100%">
-									<tr>
-										<th width="30%">Student Name</th>
-										<td>: {{ $header->first_name . ' ' . $header->last_name }}</td>
-									</tr>
-									<tr>
-										<th width="30%">Product Name</th>
-										<td>: {{ $header->product_name }}</td>
-									</tr>
-								</table>
-							</div>
+				<div class="col-md-12">
+					<table class="table table-responsive" width="100%">
+						<tr>
+							<th width="30%">Student Name</th>
+							<td>: &nbsp; {{ $header->first_name . ' ' . $header->last_name }}</td>
+						</tr>
+						<tr>
+							<th>Product Name</th>
+							<td>: &nbsp; {{ $header->product_name }}</td>
+						</tr>
+						<tr>
+							<th>Ordered Assembly</th>
+							<td>: &nbsp; {{ $header->ordered_assembly }}</td>
+						</tr>
+						<tr>
+							<th>Ordered Subject</th>
+							<td>: &nbsp; {{ $header->ordered_subject }}</td>
+						</tr>
+						<tr>
+							<th>Transfer Image</th>
+							<td>: <img src="data:image/png;base64, {{ $header->trf_file }}" /></td>
+						</tr>
+					</table>
+				</div>
 
               <table class="table table-bordered table-striped table-responsive" width="100%">
                 <thead>
                 <tr>
-                  <th>No</th>
-                  <th>Teacher Name</th>
-                  <th>Subject Name</th>
-									<th>Study Start At</th>
+                  	<th>No</th>
+                  	<th>Teacher Name</th>
+                  	<th>Subject Name</th>
+					<th>Study Start At</th>
                 </tr>
                 </thead>
                 <tbody>
-									@php ($i = 1)
-                  @foreach ($details as $detail)
-                  <tr>
-										<td>{{ $i }}</td>
-                    <td>{{ $detail->teacher_name }}</td>
-                    <td>{{ $detail->subject_name }}</td>
-										<td>{{ $detail->study_start_at }}</td>
-                  </tr>
-									@php ($i++)
-                  @endforeach
+				@php ($i = 1)
+                  	@foreach ($details as $detail)
+                 	<tr>
+						<td>{{ $i }}</td>
+                    	<td>{{ $detail->teacher_name }}</td>
+                    	<td>{{ $detail->subject_name }}</td>
+						<td>{{ $detail->study_start_at }}</td>
+                 	 </tr>
+					@php ($i++)
+                @endforeach
                 </tbody>
               </table>
 							<div class="box-footer">
-								<button type="submit" class="btn btn-info pull-right">Update</button>
+								<a href="{{ url('/' . $module) }}" class="btn btn-default pull-left"><i class="fa fa-left-arrow"></i> &nbsp; Back</a>
+								<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check"></i> &nbsp; Verify</button>
 							</div>
 								<!-- /.box-footer -->
             </div>

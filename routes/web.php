@@ -37,11 +37,14 @@ Route::get('/profile', 'TeacherController@index');
 Route::get('/profile/edit', 'TeacherController@edit');
 Route::post('/profile/update', 'TeacherController@update');
 Route::post('/profile/store', 'TeacherController@store')->name('teacher.store');
+Route::get('/profile/import-export-view', 'TeacherController@importExportView')->name('import.export.view');
+Route::post('/profile/import-file', 'TeacherController@importFile')->name('import.file');
+Route::get('/profile/export-file/{type}', 'TeacherController@exportFile')->name('export.file');
 
 
 // Email related routes
 Route::get('mail/send', 'MailController@send');
-// Route::get('auth/verification', 'Auth\RegisterController@email_verification');
+Route::get('auth/verification', 'Auth\RegisterController@email_verification');
 
 
 

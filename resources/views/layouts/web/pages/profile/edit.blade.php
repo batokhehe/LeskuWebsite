@@ -87,6 +87,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Date of Birth</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" id="datepicker" type="text" name="date_of_birth" value="{{ $teacher->date_of_birth }}" data-date-format='yyyy-mm-dd'>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-lg-3 col-form-label form-control-label">Email</label>
                                         <div class="col-lg-9">
                                             <input class="form-control" type="email" name="email" value="{{ $teacher->email }}">
@@ -101,17 +107,34 @@
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label form-control-label">Study</label>
                                         <div class="col-lg-9">
-                                            <input class="form-control" type="text" name="graduated" value="{{ $teacher->graduated }}">
+                                            <select class="form-control select2" name="graduated">
+                                                <option value="" disabled="">Select Study</option>
+                                                <option value="D3" <?php echo $teacher->graduated == 'D3' ? 'selected' : '' ?>>D3</option>
+                                                <option value="S1" <?php echo $teacher->graduated == 'S1' ? 'selected' : '' ?>>S1</option>
+                                                <option value="S2" <?php echo $teacher->graduated == 'S2' ? 'selected' : '' ?>>S2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Major</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="text" name="major" value="{{ $teacher->major }}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label form-control-label">Study Level</label>
                                         <div class="col-lg-9">
                                             <select class="form-control select2" name="studylevel[]" id="studylevel" multiple="multiple">
-                                              @foreach($subjects->all() as $subject)
-                                              <option value="{{$subject->id}}">{{$subject->name}}</option>
-                                              <!-- <option value="{{$subject->id}}" @if($subject == $subject)selected="selected"@endif>{{$subject}}</option> -->
-                                              @endforeach
+                                              @foreach($study_levels->all() as $study_level)
+                                                <option value="{{ $study_level->id }}" 
+                                                @foreach($teacher_study_levels as $teacher_study_level)
+                                                        @if ($study_level->id == $teacher_study_level->study_level_id) 
+                                                        selected="" 
+                                                        @endif
+                                                @endforeach
+                                                    >{{ $study_level->name . ' ' . $study_level->description }}
+                                                </option>
+                                            @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -119,10 +142,16 @@
                                         <label class="col-lg-3 col-form-label form-control-label">Subjects</label>
                                         <div class="col-lg-9">
                                             <select class="form-control select2" name="subject[]" id="subject" multiple="multiple">
-                                              @foreach($subjects->all() as $subject)
-                                              <option value="{{$subject->id}}">{{$subject->name}}</option>
-                                              <!-- <option value="{{$subject->id}}" @if($subject == $subject)selected="selected"@endif>{{$subject}}</option> -->
-                                              @endforeach
+                                            @foreach($subjects->all() as $subject)
+                                                <option value="{{ $subject->id }}" 
+                                                @foreach($teacher_subjects as $teacher_subject)
+                                                        @if ($subject->id == $teacher_subject->subject_id) 
+                                                        selected="" 
+                                                        @endif
+                                                @endforeach
+                                                    >{{ $subject->name }}
+                                                </option>
+                                            @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -136,23 +165,32 @@
                                         <label class="col-lg-3 col-form-label form-control-label">ID Card</label>
                                         <div class="col-lg-9">
                                             <!-- <input class="form-control" type="file" name="id_card" value="{{ $teacher->id_card }}"> -->
-                                            <input type="file" id="inputid" name="id_card" class="validate"/ >
+                                            <input type="file" id="inputid" name="id_card" class="validate" accept=".jpeg, .jpg, .png" />
                                             <img src="{{ url('doc/id/'.$teacher->id_card) }}" id="showid">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label form-control-label">Curriculum Vitae</label>
                                         <div class="col-lg-9">
-                                            <input class="form-control" id="inputcv" type="file" name="cv_file" value="{{ $teacher->cv_file }}">
-                                            <img id="cv_blank" src="{{ url('doc/blank_pdf.png') }}" width="100px" <?php echo $teacher->cv_file != '' ?  : '' ?> />
-                                            <iframe src="{{ url('doc/cv/' . $teacher->cv_file) }} ?>" frameborder="0" style="width:100%;min-height:320px;<?php echo $teacher->cv_file != '' ? '' : 'display: none;' ?>" id="showcv"></iframe>
+                                            <input class="form-control" id="inputcv" type="file" name="cv_file" value="{{ $teacher->cv_file }}" accept=".jpeg, .jpg, .png, .pdf">
+                                            <img id="cv_blank" src="{{ url('doc/blank_pdf.png') }}" width="100px" 
+                                            <?php echo $teacher->cv_file != '' ? 'style="display: none;"' : '' ?> 
+                                             />
+                                            <iframe src="{{ url('doc/cv/' . $teacher->cv_file) }} ?>" frameborder="0" style="width:100%;min-height:320px;
+                                            <?php echo $teacher->cv_file != '' ? '' : 'display: none;' ?>" 
+                                            id="showcv"></iframe>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label form-control-label">Ijazah & Transkrip Nilai</label>
                                         <div class="col-lg-9">
-                                            <input class="form-control" id="showcertificate" type="file" name="certificate" value="{{ $teacher->certificate }}">
-                                            <iframe src="{{ url('doc/certificate/' . $teacher->certificate) }}" frameborder="0" style="width:100%;min-height:320px;" id="showcertificate"></iframe>
+                                            <input class="form-control" id="showcertificate" type="file" name="certificate" value="{{ $teacher->certificate }}" accept=".jpeg, .jpg, .png, .pdf">
+                                            <img id="certificate_blank" src="{{ url('doc/blank_pdf.png') }}" width="100px" 
+                                            <?php echo $teacher->certificate != '' ? 'style="display: none;"' : '' ?> 
+                                             />
+                                            <iframe src="{{ url('doc/certificate/' . $teacher->certificate) }}" frameborder="0" style="width:100%;min-height:320px;
+                                            <?php echo $teacher->certificate != '' ? '' : 'display: none;' ?>" 
+                                            id="showcertificate"></iframe>
                                         </div>
                                     </div>
                                     <div class="form-group row">

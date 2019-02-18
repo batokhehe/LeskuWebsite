@@ -16,10 +16,10 @@ class StudyClass extends Model
 
     protected $table = 'study_classes';
     protected $table2 = 'products';
-		protected $table3 = 'users';
-		protected $table4 = 'study_class_details';
-		protected $table5 = 'subjects';
-		protected $table6 = 'teachers';
+	protected $table3 = 'users';
+	protected $table4 = 'study_class_details';
+	protected $table5 = 'subjects';
+	protected $table6 = 'teachers';
 
     public function unpaid($user_id = null){
     	$query = $this->select(
@@ -34,6 +34,7 @@ class StudyClass extends Model
     			)
     			->join($this->table2, $this->table2 . '.id', '=', $this->table . '.product_id')
                 ->whereIn($this->table . '.status', [0, 1])
+                // ->where($this->table . )
                 ->orderBy($this->table . '.status')
                 ->get();
 
@@ -45,7 +46,9 @@ class StudyClass extends Model
 			$query = $this->select(
 						$this->table. '.id',
 						$this->table3 . '.username',
-						$this->table2 . '.name',
+						$this->table3 . '.first_name',
+						$this->table3 . '.last_name',
+						$this->table2 . '.name as product_name',
 						$this->table . '.ordered_assembly',
 						$this->table . '.ordered_subject',
 						$this->table . '.status'
@@ -67,7 +70,8 @@ class StudyClass extends Model
 						$this->table2 . '.name as product_name',
 						$this->table . '.ordered_assembly',
 						$this->table . '.ordered_subject',
-						$this->table . '.status'
+						$this->table . '.status',
+                        $this->table . '.trf_file'
 					)
 					->join($this->table3, $this->table3 . '.id', '=', $this->table . '.user_id')
 					->join($this->table2, $this->table2 . '.id', '=', $this->table . '.product_id')

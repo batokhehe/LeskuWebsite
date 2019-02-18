@@ -98,6 +98,10 @@
                                 <a href="javascript:void();" data-target="#messages" data-toggle="pill" class="nav-link"><i
                                         class="fa fa-envelope"></i> <span class="hidden-xs">Document</span></a>
                             </li>
+                            <li class="nav-item">
+                                <a href="javascript:void();" data-target="#schedule" data-toggle="pill" class="nav-link"><i
+                                        class="fa fa-calendar"></i> <span class="hidden-xs">Schedule</span></a>
+                            </li>
                             <!-- <li class="nav-item">
                                 <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i
                                         class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
@@ -225,6 +229,32 @@
                                                 <iframe src="{{ url('doc/certificate/' . $teacher->certificate . '#toolbar=0') }}" frameborder="0" style="width:640px;min-height:640px;"></iframe>
                                             </div>
                                         </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="schedule">
+                                <table class="table table-hover table-striped">
+                                    <tbody>
+                                        <strong>Download Schedule Template</strong>
+                                        <hr>
+                                        <div class="input-group mb-3">
+                                            <div class="custom-file">
+                                                <a class="btn btn-primary" href="{{ route('export.file',['type'=>'xls']) }}"><i class="fa fa-download"></i> &nbsp; Download Here</a>
+                                            </div>
+                                        </div>
+                                        <strong>Upload Your Schedule</strong>
+                                        <hr>
+                                        <div class="input-group mb-3">
+                                            <div class="custom-file">
+                                                <form action="{{ url('/' . $module . '/import-file') }}" method="post" enctype="multipart/form-data">
+                                                    {{ csrf_field() }}
+                                                    <input type="file" name="import_schedule" accept=".xls,.xlsx">
+                                                    <button type="submit" class="btn btn-primary"> Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <strong>Schedule</strong>
+                                        <hr>
                                     </tbody>
                                 </table>
                             </div>
