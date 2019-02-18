@@ -310,7 +310,7 @@
 	});
 
 	$("#inputcertificate").change(function () {
-			readURL(this, 'showcertificate');
+			readURL(this, 'showcertificate', 'cv_blank');
 	});
 
 </script>
