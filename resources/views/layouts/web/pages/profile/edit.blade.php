@@ -126,10 +126,10 @@
                                         <div class="col-lg-9">
                                             <select class="form-control select2" name="studylevel[]" id="studylevel" multiple="multiple">
                                               @foreach($study_levels->all() as $study_level)
-                                                <option value="{{ $study_level->id }}" 
+                                                <option value="{{ $study_level->id }}"
                                                 @foreach($teacher_study_levels as $teacher_study_level)
-                                                        @if ($study_level->id == $teacher_study_level->study_level_id) 
-                                                        selected="" 
+                                                        @if ($study_level->id == $teacher_study_level->study_level_id)
+                                                        selected=""
                                                         @endif
                                                 @endforeach
                                                     >{{ $study_level->name . ' ' . $study_level->description }}
@@ -143,10 +143,10 @@
                                         <div class="col-lg-9">
                                             <select class="form-control select2" name="subject[]" id="subject" multiple="multiple">
                                             @foreach($subjects->all() as $subject)
-                                                <option value="{{ $subject->id }}" 
+                                                <option value="{{ $subject->id }}"
                                                 @foreach($teacher_subjects as $teacher_subject)
-                                                        @if ($subject->id == $teacher_subject->subject_id) 
-                                                        selected="" 
+                                                        @if ($subject->id == $teacher_subject->subject_id)
+                                                        selected=""
                                                         @endif
                                                 @endforeach
                                                     >{{ $subject->name }}
@@ -173,23 +173,23 @@
                                         <label class="col-lg-3 col-form-label form-control-label">Curriculum Vitae</label>
                                         <div class="col-lg-9">
                                             <input class="form-control" id="inputcv" type="file" name="cv_file" value="{{ $teacher->cv_file }}" accept=".jpeg, .jpg, .png, .pdf">
-                                            <img id="cv_blank" src="{{ url('doc/blank_pdf.png') }}" width="100px" 
-                                            <?php echo $teacher->cv_file != '' ? 'style="display: none;"' : '' ?> 
+                                            <img id="cv_blank" src="{{ url('doc/blank_pdf.png') }}" width="100px"
+                                            <?php echo $teacher->cv_file != '' ? 'style="display: none;"' : '' ?>
                                              />
                                             <iframe src="{{ url('doc/cv/' . $teacher->cv_file) }} ?>" frameborder="0" style="width:100%;min-height:320px;
-                                            <?php echo $teacher->cv_file != '' ? '' : 'display: none;' ?>" 
+                                            <?php echo $teacher->cv_file != '' ? '' : 'display: none;' ?>"
                                             id="showcv"></iframe>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label form-control-label">Ijazah & Transkrip Nilai</label>
                                         <div class="col-lg-9">
-                                            <input class="form-control" id="showcertificate" type="file" name="certificate" value="{{ $teacher->certificate }}" accept=".jpeg, .jpg, .png, .pdf">
-                                            <img id="certificate_blank" src="{{ url('doc/blank_pdf.png') }}" width="100px" 
-                                            <?php echo $teacher->certificate != '' ? 'style="display: none;"' : '' ?> 
+                                            <input class="form-control" id="inputcertificate" type="file" name="certificate" value="{{ $teacher->certificate }}" accept=".jpeg, .jpg, .png, .pdf">
+                                            <img id="certificate_blank" src="{{ url('doc/blank_pdf.png') }}" width="100px"
+                                            <?php echo $teacher->certificate != '' ? 'style="display: none;"' : '' ?>
                                              />
                                             <iframe src="{{ url('doc/certificate/' . $teacher->certificate) }}" frameborder="0" style="width:100%;min-height:320px;
-                                            <?php echo $teacher->certificate != '' ? '' : 'display: none;' ?>" 
+                                            <?php echo $teacher->certificate != '' ? '' : 'display: none;' ?>"
                                             id="showcertificate"></iframe>
                                         </div>
                                     </div>
