@@ -16,4 +16,12 @@ class TeacherSchedule extends Model
 	   */
 	  protected $hidden = [
 	  ];
+
+	  public function find_detail_reschedule($teacher_id = NULL)
+	  {
+	    $query = TeacherSchedule::where('teacher_id', $teacher_id)
+	              ->where('status', '0')
+	              ->get();
+	    return $query;
+	  }
 }

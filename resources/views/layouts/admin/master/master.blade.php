@@ -335,7 +335,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="{{ url('/change_teacher') }}"><i class="fa fa-circle-o"></i> Change Teacher</a></li>
             <li><a href="{{ url('/payment_verification') }}"><i class="fa fa-circle-o"></i> Payment Verification</a></li>
+            <li><a href="{{ url('/reschedule') }}"><i class="fa fa-circle-o"></i> Reschedule</a></li>
           </ul>
         </li>
         <li class="treeview">

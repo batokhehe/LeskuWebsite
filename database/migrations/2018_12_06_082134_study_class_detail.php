@@ -18,11 +18,14 @@ class StudyClassDetail extends Migration
         $table->integer('study_class_id');
         $table->integer('subject_id');
         $table->integer('teacher_id');
-        $table->timestamp('study_start_at')->nullable();
-        $table->timestamp('studdy_end_at')->nullable();
+        $table->timestamp('study_start_at')->nullable()->default(null);
+        $table->timestamp('study_end_at')->nullable()->default(null);
         $table->string('rating')->nullable();
         $table->string('unique_code');
-        $table->integer('status');
+        $table->integer('status')->default(0);
+        $table->integer('student_status')->default(0);
+        $table->string('reason')->nullable();
+        $table->string('submitter')->nullable();
         $table->timestamps();
       });
     }

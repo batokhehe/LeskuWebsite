@@ -16,7 +16,7 @@ class Teacher extends Migration
       Schema::create('teachers', function (Blueprint $table) {
         $table->increments('id');
         $table->string('name');
-        $table->timestamp('date_of_birth');
+        $table->timestamp('date_of_birth')->default(null);
         $table->string('address')->nullable();
         $table->string('email');
         $table->string('phone_number')->nullable();

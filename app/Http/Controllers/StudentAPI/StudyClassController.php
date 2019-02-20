@@ -203,6 +203,145 @@ class StudyClassController extends Controller
             ); 
     }
 
+    public function waiting(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $user_id = $request->user()->id;
+
+        $result = $this->study_class_mdl->waiting($user_id);
+
+        foreach ($result as $key => $value) {
+            $result[$key]['accepted'] = $this->study_class_detail_mdl->accepted_order($value->id)->accepted;
+        }
+
+        return response()->json(
+                    $result, 
+                $this->successStatus
+            ); 
+    }
+
+    public function paid(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $user_id = $request->user()->id;
+
+        $result = $this->study_class_mdl->paid($user_id);
+
+        return response()->json(
+                    $result, 
+                $this->successStatus
+            ); 
+    }
+
+    public function upcoming(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $user_id = $request->user()->id;
+
+        $result = $this->study_class_detail_mdl->student_upcoming($user_id);
+
+        return response()->json(
+                    $result, 
+                $this->successStatus
+            ); 
+    }
+
+    public function confirm_schedule(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $study_class_detail = $this->study_class_detail_mdl->where('id', $request->id)->first();
+        $study_class = $this->study_class_mdl->where('id', $study_class_detail->study_class_id)
+                                ->where('user_id', $request->user()->id)
+                                ->first();
+
+        $data = array('student_status' => '4');
+        $result = $this->study_class_detail_mdl->where('id', $request->id)->where('study_class_id', $study_class->id)->update($data);
+
+        if($result){
+            return response()->json(
+                [
+                    'status' => $this->successStatus,
+                    'response' => 'Data Successfully Updated'
+                ], 
+                $this->successStatus
+            ); 
+        } else {
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+        }
+    }
+
+    public function reschedule(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $study_class_detail = $this->study_class_detail_mdl->where('id', $request->id)->first();
+        $study_class = $this->study_class_mdl->where('id', $study_class_detail->study_class_id)
+                                ->where('user_id', $request->user()->id)
+                                ->first();
+
+        $data = array('student_status' => '5');
+        $result = $this->study_class_detail_mdl->where('id', $request->id)->where('study_class_id', $study_class->id)->update($data);
+
+        if($result){
+            return response()->json(
+                [
+                    'status' => $this->successStatus,
+                    'response' => 'Data Successfully Updated'
+                ], 
+                $this->successStatus
+            ); 
+        } else {
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+        }
+    }
+
+
     //PROCESS
 
     public function dummy_push_notif_to_teacher()

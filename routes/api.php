@@ -55,13 +55,25 @@ Route::group([
         Route::post('order/teacher_blank_schedules', 'StudentAPI\TeacherController@blank_schedules');
         Route::post('order/add', 'StudentAPI\StudyClassController@store');
         Route::get('order/unpaid', 'StudentAPI\StudyClassController@unpaid');
+        Route::get('order/waiting', 'StudentAPI\StudyClassController@waiting');
+        Route::get('order/paid', 'StudentAPI\StudyClassController@paid');
         Route::post('order/detail', 'StudentAPI\StudyClassController@detail');
         Route::post('order/upload_trf_file', 'StudentAPI\StudyClassController@upload');
+
+        //Schedule
+        Route::get('schedule/upcoming', 'StudentAPI\StudyClassController@upcoming');
+        Route::post('schedule/confirm_schedule', 'StudentAPI\StudyClassController@confirm_schedule');
+        Route::post('schedule/reschedule', 'StudentAPI\StudyClassController@reschedule');
         /*---------- STUDENT -----------*/
 
         /*---------- TEACHER -----------*/
         Route::get('teacher/order/waiting', 'TeacherAPI\StudyClassController@waiting');
         Route::post('teacher/order/accept_order', 'TeacherAPI\StudyClassController@accept_order');
+        Route::post('teacher/order/decline_order', 'TeacherAPI\StudyClassController@decline_order');
+
+        Route::get('teacher/order/upcoming', 'TeacherAPI\StudyClassController@upcoming');
+        Route::post('teacher/schedule/confirm_schedule', 'TeacherAPI\StudyClassController@confirm_schedule');
+        Route::post('teacher/schedule/reschedule', 'TeacherAPI\StudyClassController@reschedule');
         /*---------- TEACHER -----------*/
     }
 );

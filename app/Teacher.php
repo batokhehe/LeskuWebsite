@@ -53,4 +53,23 @@ class Teacher extends Model
     return $teacher;
   }
 
+  public function find_detail_change_teacher($schedule_date = NULL)
+  {
+    $teacher = Teacher::select(
+                'teachers.id as teacher_id',
+                'teachers.name',
+                'teachers.address',
+                'teachers.graduated',
+                'teachers.major',
+                'teachers.date_of_birth',
+                'teachers.image',
+                'teacher_schedules.id as teacher_schedules_id'
+              )
+              ->join('teacher_schedules', 'teachers.id', '=', 'teacher_schedules.teacher_id')
+              ->where('teacher_schedules.schedule_date', $schedule_date)
+              ->where('teacher_schedules.status', '0')
+              ->get();
+    return $teacher;
+  }
+
 }

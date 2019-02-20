@@ -81,6 +81,11 @@ Route::get('/user/delete/{id}', 'UserController@delete');
 Route::get('/payment_verification', 'StudyClassController@index');
 Route::get('/payment_verification/edit/{id}', 'StudyClassController@edit');
 Route::post('/payment_verification/update/{id}', 'StudyClassController@update');
-Route::get('/user/delete/{id}', 'UserController@delete');
+Route::get('/change_teacher', 'StudyClassController@index_change_teacher');
+Route::get('/change_teacher/edit/{id}', 'StudyClassController@change_teacher_edit');
+Route::post('/change_teacher/update/{id}', 'StudyClassController@change_teacher_update');
+Route::get('/reschedule', 'StudyClassController@index_reschedule');
+Route::get('/reschedule/edit/{id}', 'StudyClassController@reschedule_edit');
+Route::post('/reschedule/update/{id}', 'StudyClassController@reschedule_update');
 
 // Route::get('/home', 'HomeController@index')->name('home');
