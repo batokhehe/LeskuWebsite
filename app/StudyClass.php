@@ -20,6 +20,7 @@ class StudyClass extends Model
 	protected $table4 = 'study_class_details';
 	protected $table5 = 'subjects';
 	protected $table6 = 'teachers';
+    protected $table7 = 'students';
 
     public function unpaid($user_id = null){
     	$query = $this->select(
@@ -207,21 +208,24 @@ class StudyClass extends Model
     {
         $query = $this->select(
                     $this->table6. '.name as teacher_name',
+                    $this->table6. '.phone_number as teacher_phone',
+                    $this->table6 . '.id as teacher_id',
                     $this->table5 . '.name as subject_name',
                     $this->table4 . '.study_start_at',
                     $this->table4 . '.id',
                     $this->table4 . '.study_class_id',
-                    $this->table3 . '.first_name',
-                    $this->table3 . '.last_name',
                     $this->table4 . '.status',
                     $this->table4 . '.student_status',
-                    $this->table6 . '.id as teacher_id'
+                    $this->table3 . '.first_name',
+                    $this->table3 . '.last_name',
+                    $this->table7 . '.phone_number as student_phone'
                 )
                 ->from($this->table4)
                 ->join($this->table6, $this->table6 . '.id', '=', $this->table4 . '.teacher_id')
                 ->join($this->table5, $this->table5 . '.id', '=', $this->table4 . '.subject_id')
                 ->join($this->table, $this->table . '.id', '=', $this->table4 . '.study_class_id')
                 ->join($this->table3, $this->table3 . '.id', '=', $this->table . '.user_id')
+                ->join($this->table7, $this->table7 . '.user_id', '=', $this->table . '.user_id')
                 ->where(function ($query) {
                             $query->where($this->table4 . '.status', '=', '5')
                                   ->orWhere($this->table4 . '.student_status', '=', '5');

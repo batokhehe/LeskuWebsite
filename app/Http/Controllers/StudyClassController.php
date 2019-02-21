@@ -163,4 +163,37 @@ class StudyClassController extends Controller
               ->with('success', 'Data Updated')
               ->with('module', $module);
     }
+
+    public function reschedule_update(Request $request, $id)
+    {
+      $study_class_detail = $this->study_class_detail_mdl->where('id', $id)->first();
+
+      $teacher_schedule_data = array(
+        'status' => '4',
+      );      
+      $teacher_schedule = $this->teacher_schedule_mdl->where('teacher_id', $study_class_detail->teacher_id)->where('schedule_date', $study_class_detail->study_start_at)->update($teacher_schedule_data);
+
+      $teacher_new_schedule_data = array(
+        'status' => '5',
+        'study_class_detail_id' => $study_class_detail->id,
+      );      
+      $teacher_new_schedule = $this->teacher_schedule_mdl->where('teacher_id', $study_class_detail->teacher_id)->where('id', $request->new_schedule)->update($teacher_new_schedule_data);
+
+      $result_teacher_schedule = $this->teacher_schedule_mdl->where('id', $request->new_schedule)->first();
+
+      $study_class_detail_data = array(
+        'study_start_at' => $result_teacher_schedule->schedule_date,
+        'status' => '6',
+        'student_status' => '6',
+        'rescheduled' => '1',
+        'reason' => $request->reason,
+        'submitter' => $request->submitter,
+      );
+      $result = $this->study_class_detail_mdl->where('id', $study_class_detail->id)->update($study_class_detail_data);
+
+      $module = 'reschedule';
+      return redirect('reschedule')
+              ->with('success', 'Data Updated')
+              ->with('module', $module);
+    }
 }

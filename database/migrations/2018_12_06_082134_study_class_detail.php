@@ -26,6 +26,9 @@ class StudyClassDetail extends Migration
         $table->integer('student_status')->default(0);
         $table->string('reason')->nullable();
         $table->string('submitter')->nullable();
+        $table->integer('rescheduled')->default(0);
+        $table->string('comment')->nullable();
+        $table->integer('change_teacher')->default(0);
         $table->timestamps();
       });
     }

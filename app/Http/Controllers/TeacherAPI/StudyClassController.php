@@ -235,4 +235,84 @@ class StudyClassController extends Controller
             ); 
         }
     }
+
+    public function finished(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $user_id = $request->user()->id;
+
+        $result = $this->study_class_detail_mdl->teacher_finished($user_id);
+
+        return response()->json(
+                    $result, 
+                $this->successStatus
+            ); 
+    }
+
+    public function presence(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $user_id = $request->user()->id;
+
+        $result = $this->study_class_detail_mdl->teacher_presence($user_id);
+
+        return response()->json(
+                    $result, 
+                $this->successStatus
+            ); 
+    }
+
+    public function confirm_presence(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $teacher = $this->teacher_mdl->where('user_id', $request->user()->id)->first();
+
+        $data = array(
+            'status' => '9',
+            'study_end_at' => now(),
+        );
+        $result = $this->study_class_detail_mdl
+                    ->where('id', $request->id)
+                    ->where('teacher_id', $teacher->id)
+                    ->whereRaw("BINARY `unique_code`= ?", [$request->unique_code])->update($data);
+
+        if($result){
+            return response()->json(
+                [
+                    'status' => $this->successStatus,
+                    'response' => 'Data Successfully Updated'
+                ], 
+                $this->successStatus
+            ); 
+        } else {
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+        }
+    }
 }

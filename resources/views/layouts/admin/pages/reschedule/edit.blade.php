@@ -43,10 +43,6 @@
 							<td>: &nbsp; {{ $header->first_name . ' ' . $header->last_name }}</td>
 						</tr>
 						<tr>
-							<th>Teacher</th>
-							<td>: &nbsp; {{ $header->teacher_name }}</td>
-						</tr>
-						<tr>
 							<th>Student Status</th>
 							<td>: &nbsp; <?php if($header->student_status == '5'){ 
                                 echo 'Reschedule'; 
@@ -55,12 +51,24 @@
                               } else { echo 'Belum Dikonfirmasi'; } ?></td>
 						</tr>
 						<tr>
+							<th>Student Phone Number</th>
+							<td>: &nbsp; {{ $header->student_phone }}</td>
+						</tr>
+						<tr>
+							<th>Teacher</th>
+							<td>: &nbsp; {{ $header->teacher_name }}</td>
+						</tr>
+						<tr>
 							<th>Teacher Status</th>
 							<td>: &nbsp; <?php if($header->status == '5'){ 
                                 echo 'Reschedule'; 
                               } else if ($header->status == '4') {
                                 echo 'Dikonfirmasi';
                               } else { echo 'Belum Dikonfirmasi'; } ?></td>
+						</tr>
+						<tr>
+							<th>Teacher Phone Number</th>
+							<td>: &nbsp; {{ $header->teacher_phone }}</td>
 						</tr>
 						<tr>
 							<th>Subject</th>

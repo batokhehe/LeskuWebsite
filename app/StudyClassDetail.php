@@ -63,14 +63,41 @@ class StudyClassDetail extends Model
                     $this->table3 . '.name as teacher_name',
                     $this->table3 . '.address as teacher_address',
                     $this->table3 . '.image as teacher_image',
-                    $this->table . '.study_start_at'
+                    $this->table . '.study_start_at',
+                    $this->table . '.student_status',
+                    $this->table . '.status'
                 )
                 ->join($this->table2, $this->table2 . '.id', '=', $this->table . '.subject_id')
                 ->join($this->table3, $this->table3 . '.id', '=', $this->table . '.teacher_id')
                 ->join($this->table4, $this->table4 . '.id', '=', $this->table . '.study_class_id')
                 ->join($this->table5, $this->table5 . '.user_id', '=', $this->table4 . '.user_id')
                 ->where($this->table5 . '.user_id', $user_id)
-                ->where($this->table . '.student_status', '0')
+                ->whereIn($this->table . '.student_status', [0, 4, 5, 6])
+                ->where($this->table4 . '.status', '3')
+                ->get();
+
+                return $query;
+    }
+
+    public function student_history($user_id = null){
+        $query = $this->select(
+                    $this->table . '.id', 
+                    $this->table . '.study_class_id', 
+                    $this->table . '.subject_id',
+                    $this->table2 . '.name as subject_name',
+                    $this->table3 . '.name as teacher_name',
+                    $this->table3 . '.address as teacher_address',
+                    $this->table3 . '.image as teacher_image',
+                    $this->table . '.study_start_at',
+                    $this->table . '.student_status',
+                    $this->table . '.status'
+                )
+                ->join($this->table2, $this->table2 . '.id', '=', $this->table . '.subject_id')
+                ->join($this->table3, $this->table3 . '.id', '=', $this->table . '.teacher_id')
+                ->join($this->table4, $this->table4 . '.id', '=', $this->table . '.study_class_id')
+                ->join($this->table5, $this->table5 . '.user_id', '=', $this->table4 . '.user_id')
+                ->where($this->table5 . '.user_id', $user_id)
+                ->where($this->table . '.status', '9')
                 ->where($this->table4 . '.status', '3')
                 ->get();
 
@@ -109,15 +136,40 @@ class StudyClassDetail extends Model
                     $this->table5 . '.name as student_name',
                     $this->table5 . '.address as student_address',
                     $this->table5 . '.image as student_image',
-                    $this->table . '.study_start_at'
+                    $this->table . '.study_start_at',
+                    $this->table . '.status'
                 )
                 ->join($this->table2, $this->table2 . '.id', '=', $this->table . '.subject_id')
                 ->join($this->table3, $this->table3 . '.id', '=', $this->table . '.teacher_id')
                 ->join($this->table4, $this->table4 . '.id', '=', $this->table . '.study_class_id')
                 ->join($this->table5, $this->table5 . '.user_id', '=', $this->table4 . '.user_id')
                 ->where($this->table3 . '.user_id', $user_id)
-                ->where($this->table . '.status', '3')
+                ->whereIn($this->table . '.status', [3, 4, 5, 6])
                 ->where($this->table4 . '.status', '3')
+                ->get();
+
+                return $query;
+    }
+
+    public function teacher_finished($user_id = null){
+        $query = $this->select(
+                    $this->table . '.id', 
+                    $this->table . '.study_class_id', 
+                    $this->table . '.subject_id',
+                    $this->table2 . '.name as subject_name',
+                    $this->table5 . '.name as student_name',
+                    $this->table5 . '.address as student_address',
+                    $this->table5 . '.image as student_image',
+                    $this->table . '.study_start_at',
+                    $this->table . '.study_end_at'
+                )
+                ->join($this->table2, $this->table2 . '.id', '=', $this->table . '.subject_id')
+                ->join($this->table3, $this->table3 . '.id', '=', $this->table . '.teacher_id')
+                ->join($this->table4, $this->table4 . '.id', '=', $this->table . '.study_class_id')
+                ->join($this->table5, $this->table5 . '.user_id', '=', $this->table4 . '.user_id')
+                ->where($this->table3 . '.user_id', $user_id)
+                ->where($this->table . '.status', '9')
+                ->whereIn($this->table4 . '.status', [3, 4])
                 ->get();
 
                 return $query;
@@ -138,6 +190,29 @@ class StudyClassDetail extends Model
                 ->join($this->table4, $this->table4 . '.id', '=', $this->table . '.study_class_id')
                 ->where($this->table . '.study_class_id', $study_class_id)
                 ->where($this->table4 . '.user_id', $user_id)
+                ->where($this->table4 . '.status', '3')
+                ->get();
+
+                return $query;
+    }
+
+    public function teacher_presence($user_id = null){
+        $query = $this->select(
+                    $this->table . '.id', 
+                    $this->table . '.study_class_id', 
+                    $this->table . '.subject_id',
+                    $this->table2 . '.name as subject_name',
+                    $this->table5 . '.name as student_name',
+                    $this->table5 . '.address as student_address',
+                    $this->table5 . '.image as student_image',
+                    $this->table . '.study_start_at'
+                )
+                ->join($this->table2, $this->table2 . '.id', '=', $this->table . '.subject_id')
+                ->join($this->table3, $this->table3 . '.id', '=', $this->table . '.teacher_id')
+                ->join($this->table4, $this->table4 . '.id', '=', $this->table . '.study_class_id')
+                ->join($this->table5, $this->table5 . '.user_id', '=', $this->table4 . '.user_id')
+                ->where($this->table3 . '.user_id', $user_id)
+                ->whereIn($this->table . '.status', [4, 6])
                 ->where($this->table4 . '.status', '3')
                 ->get();
 

@@ -341,6 +341,61 @@ class StudyClassController extends Controller
         }
     }
 
+    public function history(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $user_id = $request->user()->id;
+
+        $result = $this->study_class_detail_mdl->student_history($user_id);
+
+        return response()->json(
+                    $result, 
+                $this->successStatus
+            ); 
+    }
+
+    public function rating(Request $request){
+        if(!$request->user())
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+
+        $data = array(
+                'rating' => $request->rating,
+                'comment' => $request->comment,
+            );
+        $result = $this->study_class_detail_mdl->where('id', $request->id)->update($data);
+
+        if($result){
+            return response()->json(
+                [
+                    'status' => $this->successStatus,
+                    'response' => 'Data Successfully Updated'
+                ], 
+                $this->successStatus
+            ); 
+        } else {
+            return response()->json(
+                [
+                    'status' => $this->failedStatus,
+                    'response' => 'Unauthorized'
+                ], 
+                $this->failedStatus
+            ); 
+        }
+    }
+
 
     //PROCESS
 

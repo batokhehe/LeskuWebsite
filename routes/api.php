@@ -64,6 +64,10 @@ Route::group([
         Route::get('schedule/upcoming', 'StudentAPI\StudyClassController@upcoming');
         Route::post('schedule/confirm_schedule', 'StudentAPI\StudyClassController@confirm_schedule');
         Route::post('schedule/reschedule', 'StudentAPI\StudyClassController@reschedule');
+
+        //History
+        Route::get('history', 'StudentAPI\StudyClassController@history');
+        Route::post('history/rating', 'StudentAPI\StudyClassController@rating');
         /*---------- STUDENT -----------*/
 
         /*---------- TEACHER -----------*/
@@ -74,6 +78,11 @@ Route::group([
         Route::get('teacher/order/upcoming', 'TeacherAPI\StudyClassController@upcoming');
         Route::post('teacher/schedule/confirm_schedule', 'TeacherAPI\StudyClassController@confirm_schedule');
         Route::post('teacher/schedule/reschedule', 'TeacherAPI\StudyClassController@reschedule');
+
+        Route::get('teacher/order/finished', 'TeacherAPI\StudyClassController@finished');
+
+        Route::get('teacher/presence', 'TeacherAPI\StudyClassController@presence');
+        Route::post('teacher/presence/confirm', 'TeacherAPI\StudyClassController@confirm_presence');
         /*---------- TEACHER -----------*/
     }
 );
