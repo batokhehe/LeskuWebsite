@@ -25,14 +25,6 @@ class ProductController extends Controller
     */ 
     public function all(Request $request) 
     { 
-        if(!$request->user())
-            return response()->json(
-                [
-                    'status' => $this->failedStatus,
-                    'response' => 'Unauthorized'
-                ], 
-                $this->failedStatus
-            ); 
         $result = $this->product_mdl->all();
 
         return response()->json(

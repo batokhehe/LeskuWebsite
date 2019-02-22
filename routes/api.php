@@ -32,6 +32,9 @@ Route::group([
 	}
 );
 
+//Product
+Route::get('products', 'StudentAPI\ProductController@all');
+
 //Study Level
 Route::get('study_levels', 'StudentAPI\StudyLevelController@all');
 Route::get('dummy_push_notif', 'StudentAPI\StudyClassController@dummy_push_notif_to_teacher');
@@ -44,11 +47,8 @@ Route::group([
         //Account
         Route::post('student/update_account', 'StudentAPI\StudentController@update');
 
-    	//Product
-        Route::get('products', 'StudentAPI\ProductController@all');
-
         //Subject
-        Route::get('subjects', 'StudentAPI\SubjectController@all');
+        Route::post('subjects', 'StudentAPI\SubjectController@all');
 
         //Order
         Route::get('order/teachers', 'StudentAPI\TeacherController@all');
