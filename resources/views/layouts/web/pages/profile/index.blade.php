@@ -25,7 +25,7 @@
                               <img src="{{ url('img/teacher_profile/'.$teacher->image) }}" id="showimage">
                             </div>
                             <h5 class="mb-1 text-white">{{ Auth::user()->username }}</h5>
-                            <h6 class="text-light" style="margin-bottom: 40px;">Universitas Indonesia - Pendidikan Biologi</h6>
+                            <h6 class="text-light" style="margin-bottom: 40px;">{{ $teacher->graduated }}</h6>
                             <a href="{{ url('/' . $module . '/edit') }}" type="button" class="btn-sm btn-success"> Edit </a>
                         </div>
                         <div class="card-body">

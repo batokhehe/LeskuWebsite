@@ -35,6 +35,7 @@ class ProductController extends Controller
         'min_order' => 'required',
         'max_order' => 'required',
         'multiple' => 'required',
+        'price' => 'required'
       ]);
 
       if ($validator->fails()) {
@@ -54,7 +55,8 @@ class ProductController extends Controller
         'image' => $image_product,
         'min_order' => $request->post('min_order'),
         'max_order' => $request->post('max_order'),
-        'multiple' => $request->post('multiple')
+        'multiple' => $request->post('multiple'),
+        'price' => $request->post('price')
       ]);
       if($products->save()){
         return redirect('product')->with('success', 'Data Added');
@@ -86,7 +88,8 @@ class ProductController extends Controller
         'image' => 'required',
         'min_order' => 'required',
         'max_order' => 'required',
-        'multiple' => 'required'
+        'multiple' => 'required',
+        'price' => 'required'
       ]);
 
       if ($validator->fails()) {
@@ -105,7 +108,8 @@ class ProductController extends Controller
         'description' => $request->post('description'),
         'min_order' => $request->post('min_order'),
         'max_order' => $request->post('max_order'),
-        'multiple' => $request->post('multiple')
+        'multiple' => $request->post('multiple'),
+        'price' => $request->post('price')
       );
 
       $data = $products->update($data, $id);

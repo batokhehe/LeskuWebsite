@@ -31,6 +31,7 @@
                   <th>Minimal Order</th>
                   <th>Maximal Order</th>
 									<th>Multiple</th>
+									<th>Price</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -45,6 +46,7 @@
                     <td>{{ $product->min_order }}</td>
                     <td>{{ $product->max_order }}</td>
 										<td>{{ $product->multiple }}</td>
+										<td>{{ $product->price }}</td>
 										<td width="15%">
 											<a href="{{ url('/' . $module . '/edit/' . $product->id) }}" type="button" class="btn-sm btn-primary"><i class="fa fa-edit"></i>&nbsp;Edit</a> &nbsp;
 											<a href="{{ url('/' . $module . '/delete/' . $product->id) }}" type="button" class="btn-sm btn-danger"><i class="fa fa-trash"></i>&nbsp;Delete</a>

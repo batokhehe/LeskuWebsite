@@ -53,19 +53,25 @@
     								<div class="form-group">
     									<label for="min_order" class="col-sm-2 control-label">Minimal Order</label>
     									<div class="col-sm-10">
-    										<input type="text" class="form-control" name="min_order" placeholder="Minimal Order">
+    										<input type="number" class="form-control" name="min_order" placeholder="Minimal Order">
     									</div>
     								</div>
     								<div class="form-group">
     								  <label for="max_order" class="col-sm-2 control-label">Maximal Order</label>
     								  <div class="col-sm-10">
-    									<input type="text" class="form-control" name="max_order" placeholder="Maximal Order">
+    									<input type="number" class="form-control" name="max_order" placeholder="Maximal Order">
     								  </div>
     								</div>
     								<div class="form-group">
     								  <label for="multiple" class="col-sm-2 control-label">Multiple</label>
     								  <div class="col-sm-10">
-    									<input type="text" class="form-control" name="multiple" placeholder="Multiple">
+    									<input type="number" class="form-control" name="multiple" placeholder="Multiple">
+    								  </div>
+    								</div>
+										<div class="form-group">
+    								  <label for="multiple" class="col-sm-2 control-label">Price</label>
+    								  <div class="col-sm-10">
+    									<input type="number" class="form-control" name="price" placeholder="Price">
     								  </div>
     								</div>
     							<!-- /.box-body -->
